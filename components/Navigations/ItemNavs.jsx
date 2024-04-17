@@ -12,25 +12,25 @@ const ItemNavs = () => {
       <NavigationsBtn
         Title={"Create New"}
         Icon={BsBuildingAdd}
-        Width={"w-[220px]"}
+        Width={"!max-w-[220px]"}
         OnClick={() => {}}
       />
       <NavigationsBtn
         Title={"Info"}
         Icon={IoInformationCircle}
-        Width={"w-[220px]"}
+        Width={"!max-w-[220px]"}
         OnClick={() => {}}
       />
       <NavigationsBtn
         Title={"Add Stock"}
         Icon={TbLayoutGridAdd}
-        Width={"w-[220px]"}
+        Width={"!max-w-[220px]"}
         OnClick={() => {}}
       />
       <NavigationsBtn
         Title={"Stock Statistics"}
         Icon={TbFileReport}
-        Width={"w-[220px]"}
+        Width={"!max-w-[220px]"}
         OnClick={() => {}}
       />
     </div>

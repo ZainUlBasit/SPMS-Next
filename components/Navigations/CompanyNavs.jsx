@@ -12,19 +12,19 @@ const CompanyNavs = () => {
       <NavigationsBtn
         Title={"Create New"}
         Icon={BsBuildingAdd}
-        Width={"w-[200px]"}
+        Width={"!max-w-[200px]"}
         OnClick={() => {}}
       />
       <NavigationsBtn
         Title={"Info"}
         Icon={IoInformationCircle}
-        Width={"w-[200px]"}
+        Width={"!max-w-[200px]"}
         OnClick={() => {}}
       />
       <NavigationsBtn
         Title={"Ledger"}
         Icon={TbFileReport}
-        Width={"w-[200px]"}
+        Width={"!max-w-[200px]"}
         OnClick={() => {}}
       />
     </div>
