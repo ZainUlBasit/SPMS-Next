@@ -8,7 +8,7 @@ import { TbFileReport, TbLayoutGridAdd } from "react-icons/tb";
 
 const ItemNavs = () => {
   return (
-    <div className="flex justify-center items-center gap-x-3">
+    <div className="flex justify-center items-center gap-x-3 flex-wrap">
       <NavigationsBtn
         Title={"Create New"}
         Icon={BsBuildingAdd}

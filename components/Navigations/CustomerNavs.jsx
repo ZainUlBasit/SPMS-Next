@@ -5,13 +5,23 @@ import { IoInformationCircle } from "react-icons/io5";
 import { BsBuildingAdd } from "react-icons/bs";
 import { IoIosCash } from "react-icons/io";
 import { TbFileReport } from "react-icons/tb";
+import { MdOutlineCreateNewFolder } from "react-icons/md";
+import { FaUserPlus } from "react-icons/fa";
+import { VscGitPullRequestCreate } from "react-icons/vsc";
+import { BiSolidReport } from "react-icons/bi";
 
-const CompanyNavs = () => {
+const CustomerNavs = () => {
   return (
     <div className="flex justify-center items-center gap-x-3 flex-wrap">
       <NavigationsBtn
         Title={"Create New"}
-        Icon={BsBuildingAdd}
+        Icon={FaUserPlus}
+        Width={"!max-w-[200px]"}
+        OnClick={() => {}}
+      />
+      <NavigationsBtn
+        Title={"Create Bill"}
+        Icon={MdOutlineCreateNewFolder}
         Width={"!max-w-[200px]"}
         OnClick={() => {}}
       />
@@ -22,8 +32,14 @@ const CompanyNavs = () => {
         OnClick={() => {}}
       />
       <NavigationsBtn
+        Title={"Item Return"}
+        Icon={VscGitPullRequestCreate}
+        Width={"!max-w-[200px]"}
+        OnClick={() => {}}
+      />
+      <NavigationsBtn
         Title={"Ledger"}
-        Icon={TbFileReport}
+        Icon={BiSolidReport}
         Width={"!max-w-[200px]"}
         OnClick={() => {}}
       />
@@ -31,4 +47,4 @@ const CompanyNavs = () => {
   );
 };
 
-export default CompanyNavs;
+export default CustomerNavs;
