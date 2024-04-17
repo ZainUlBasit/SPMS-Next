@@ -3,6 +3,7 @@ import { GiCrackedGlass } from "react-icons/gi";
 import { IoHome } from "react-icons/io5";
 import { MdFactory } from "react-icons/md";
 
+// navdata
 export const NavData = [
   { title: "Home", Icon: IoHome, Link: "/home" },
   { title: "Company", Icon: MdFactory, Link: "/company" },
