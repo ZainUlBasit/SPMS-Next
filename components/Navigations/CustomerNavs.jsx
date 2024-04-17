@@ -12,7 +12,7 @@ import { BiSolidReport } from "react-icons/bi";
 
 const CustomerNavs = () => {
   return (
-    <div className="flex justify-center items-center gap-x-3 flex-wrap">
+    <div className="flex justify-center items-center gap-x-3 flex-wrap gap-y-3">
       <NavigationsBtn
         Title={"Create New"}
         Icon={FaUserPlus}
