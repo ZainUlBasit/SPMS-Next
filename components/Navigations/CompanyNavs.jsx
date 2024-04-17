@@ -8,7 +8,7 @@ import { TbFileReport } from "react-icons/tb";
 
 const CompanyNavs = () => {
   return (
-    <div className="flex justify-center items-center gap-x-3 flex-wrap">
+    <div className="flex justify-center items-center gap-x-3">
       <NavigationsBtn
         Title={"Create New"}
         Icon={BsBuildingAdd}
