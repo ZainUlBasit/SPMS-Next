@@ -5,10 +5,11 @@ import { IoInformationCircle } from "react-icons/io5";
 import { BsBuildingAdd } from "react-icons/bs";
 import { IoIosCash } from "react-icons/io";
 import { TbFileReport } from "react-icons/tb";
+import NavigationWrapper from "./NavigationWrapper";
 
 const CompanyNavs = () => {
   return (
-    <div className="flex justify-center items-center gap-x-3 flex-wrap gap-y-3">
+    <NavigationWrapper>
       <NavigationsBtn
         Title={"Create New"}
         Icon={BsBuildingAdd}
@@ -27,7 +28,7 @@ const CompanyNavs = () => {
         Width={"!max-w-[200px]"}
         OnClick={() => {}}
       />
-    </div>
+    </NavigationWrapper>
   );
 };
 

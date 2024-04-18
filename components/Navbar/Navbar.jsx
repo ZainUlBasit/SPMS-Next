@@ -27,7 +27,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <div className="flex justify-between items-center w-full p-5 px-8">
+      <div className="flex justify-between items-center w-full p-5 px-8 fixed bg-[aliceblue] shadow-xl">
         <div className="flex items-center gap-x-4">
           <BsFillMenuButtonWideFill
             className="text-3xl text-[#394b92] hover:text-[#0E2480] cursor-pointer"

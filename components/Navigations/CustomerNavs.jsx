@@ -9,10 +9,11 @@ import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { FaUserPlus } from "react-icons/fa";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
 import { BiSolidReport } from "react-icons/bi";
+import NavigationWrapper from "./NavigationWrapper";
 
 const CustomerNavs = () => {
   return (
-    <div className="flex justify-center items-center gap-x-3 flex-wrap gap-y-3">
+    <NavigationWrapper>
       <NavigationsBtn
         Title={"Create New"}
         Icon={FaUserPlus}
@@ -43,7 +44,7 @@ const CustomerNavs = () => {
         Width={"!max-w-[200px]"}
         OnClick={() => {}}
       />
-    </div>
+    </NavigationWrapper>
   );
 };
 

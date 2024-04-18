@@ -11,7 +11,7 @@ export const NavData = [
   { title: "Company", Icon: MdFactory, Link: "/company" },
   { title: "Items", Icon: GiCrackedGlass, Link: "/item" },
   { title: "Customer", Icon: FaUserClock, Link: "/customer" },
-  { title: "Customer", Icon: FaUsersBetweenLines, Link: "/employee" },
+  { title: "Employeee", Icon: FaUsersBetweenLines, Link: "/employee" },
   { title: "Statistics", Icon: BiSolidReport, Link: "/statistics" },
   { title: "Payments", Icon: MdOutlinePayments, Link: "/payments" },
 ];
