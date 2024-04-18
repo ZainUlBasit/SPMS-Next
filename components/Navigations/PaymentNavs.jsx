@@ -1,39 +1,36 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import NavigationsBtn from "../Buttons/NavigationsBtn";
 import { IoInformationCircle } from "react-icons/io5";
 import { BsBuildingAdd } from "react-icons/bs";
 import { IoIosCash } from "react-icons/io";
-import { TbFileReport } from "react-icons/tb";
+import { TbFileReport, TbLayoutGridAdd } from "react-icons/tb";
 import NavigationWrapper from "./NavigationWrapper";
-import CreateCompany from "../Modals/CreateCompany";
+import { RiSecurePaymentFill } from "react-icons/ri";
 
-const CompanyNavs = () => {
-  const [Open, setOpen] = useState(false);
-
+const PaymentNavs = () => {
   return (
     <NavigationWrapper>
       <NavigationsBtn
         Title={"Create New"}
-        Icon={BsBuildingAdd}
-        Width={"!max-w-[200px]"}
-        OnClick={() => setOpen(true)}
+        Icon={RiSecurePaymentFill}
+        Width={"!max-w-[220px]"}
+        OnClick={() => {}}
       />
       <NavigationsBtn
-        Title={"Info"}
+        Title={"Customer Info"}
         Icon={IoInformationCircle}
-        Width={"!max-w-[200px]"}
+        Width={"!max-w-[220px]"}
         OnClick={() => {}}
       />
       <NavigationsBtn
-        Title={"Ledger"}
-        Icon={TbFileReport}
-        Width={"!max-w-[200px]"}
+        Title={"Company Info"}
+        Icon={IoInformationCircle}
+        Width={"!max-w-[220px]"}
         OnClick={() => {}}
       />
-      {Open && <CreateCompany open={Open} setOpen={setOpen} />}
     </NavigationWrapper>
   );
 };
 
-export default CompanyNavs;
+export default PaymentNavs;

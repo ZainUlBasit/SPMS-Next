@@ -25,6 +25,7 @@ const Navbar = () => {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+
   return (
     <>
       <div className="flex justify-between items-center w-full p-5 px-8 fixed bg-[aliceblue] shadow-xl">
