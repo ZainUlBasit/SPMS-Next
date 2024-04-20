@@ -13,11 +13,15 @@ import { useState } from "react";
 import { IoEyeOffSharp } from "react-icons/io5";
 import { IoEyeSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import { LoginApi } from "@/Https";
+import { SuccessToast } from "@/utils/ShowToast";
+import ProcessLoader from "@/components/Loader/ProcessLoader";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [Loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -34,10 +38,25 @@ export default function Home() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
-    router.push("/home");
-    // Add your form submission logic here
+    try {
+      const response = await LoginApi({ email, password });
+      if (response.data.success) {
+        localStorage.setItem("token", response.data?.data?.payload?.token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify(response.data.data.payload.user)
+        );
+        SuccessToast(response.data?.data?.msg);
+        router.push("/home");
+      } else {
+      }
+    } catch (err) {
+      alert(err.response?.data?.error?.message || err.message);
+    }
+    setLoading(false);
   };
 
   return (
@@ -82,12 +101,16 @@ export default function Home() {
           </FormControl>
 
           <div className="w-full flex justify-center my-5">
-            <button
-              onClick={handleSubmit}
-              className="w-[90%] hover:bg-[#394B92] py-3 hover:text-white border-2 border-[#394B92] text-[#394B92] font-[900] text-xl hover:rounded-xl transition-all ease-in-out duration-500"
-            >
-              Sign In
-            </button>
+            {Loading ? (
+              <ProcessLoader />
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className="w-[90%] hover:bg-[#394B92] py-3 hover:text-white border-2 border-[#394B92] text-[#394B92] font-[900] text-xl hover:rounded-xl transition-all ease-in-out duration-500"
+              >
+                Sign In
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import ModalWrapper from "./ModalWrapper";
 import { FormControl, TextField } from "@mui/material";
+import Joi from "joi";
+import { SuccessToast, WarningToast } from "@/utils/ShowToast";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
+import { CreateCompanyApi } from "@/Https";
 
 const CreateCompany = ({ open, setOpen }) => {
   const [Name, setName] = useState("");
@@ -9,7 +13,46 @@ const CreateCompany = ({ open, setOpen }) => {
   const [Cnic, setCnic] = useState("");
   const [Desc, setDesc] = useState("");
   const [Address, setAddress] = useState("");
-  const handleSubmit = (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const schema = Joi.object({
+      Name: Joi.string().required(),
+      Contact: Joi.string().required(),
+      Email: Joi.string().required(),
+      Cnic: Joi.string().required(),
+      Desc: Joi.string().required(),
+      Address: Joi.string().required(),
+    });
+
+    // Validate input values
+    const { error } = schema.validate({
+      Name,
+      Contact: Contact.toString(),
+      Email,
+      Cnic: Cnic.toString(),
+      Desc,
+      Address,
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      try {
+        const response = await CreateCompanyApi({
+          name: Name,
+          contact: Contact.toString(),
+          email: Email,
+          cnic: Cnic.toString(),
+          desc: Desc,
+          address: Address,
+        });
+        console.log("yes", response);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
   return (
     <ModalWrapper open={open} setOpen={setOpen} title={"Create Company"}>
       <div className="flex justify-center flex-col py-5">
