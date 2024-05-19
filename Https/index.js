@@ -28,3 +28,14 @@ export const apiForImage = axios.create({
 export const LoginApi = (payload) => api.post("/login", payload);
 
 export const CreateCompanyApi = (payload) => api.post("/company", payload);
+export const UpdateCompanyApi = (payload) => api.patch("/company", payload);
+export const DeleteCompanyApi = (payload) =>
+  api.post("/company/delete", payload);
+export const GetCompanyApi = () => api.get("/company");
+// ======================================
+//  items requests
+// ======================================
+export const CreateItemApi = (payload) => api.post("/item", payload);
+export const DeleteItemApi = (payload) => api.post("/item/delete", payload);
+export const UpdateItemApi = (payload) => api.patch("/item", payload);
+export const GetItemApi = () => api.get("/item");

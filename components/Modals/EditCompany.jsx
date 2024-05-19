@@ -4,19 +4,19 @@ import { FormControl, TextField } from "@mui/material";
 import Joi from "joi";
 import { SuccessToast, WarningToast } from "@/utils/ShowToast";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
-import { CreateCompanyApi } from "@/Https";
+import { CreateCompanyApi, UpdateCompanyApi } from "@/Https";
 import { useDispatch } from "react-redux";
 import { fetchCompanies } from "@/utils/Slices/CompanySlice";
 import { successMessage } from "@/utils/ResponseMessage";
 import ProcessLoader from "../Loader/ProcessLoader";
 
-const CreateCompany = ({ open, setOpen }) => {
-  const [Name, setName] = useState("");
-  const [Contact, setContact] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Cnic, setCnic] = useState("");
-  const [Desc, setDesc] = useState("");
-  const [Address, setAddress] = useState("");
+const EditCompany = ({ open, setOpen, CurrentCompany }) => {
+  const [Name, setName] = useState(CurrentCompany.name);
+  const [Contact, setContact] = useState(CurrentCompany.contact);
+  const [Email, setEmail] = useState(CurrentCompany.email);
+  const [Cnic, setCnic] = useState(CurrentCompany.cnic);
+  const [Desc, setDesc] = useState(CurrentCompany.desc);
+  const [Address, setAddress] = useState(CurrentCompany.address);
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
@@ -46,13 +46,14 @@ const CreateCompany = ({ open, setOpen }) => {
       alert(error.message);
     } else {
       try {
-        const response = await CreateCompanyApi({
+        const response = await UpdateCompanyApi({
           name: Name,
           contact: Contact.toString(),
           email: Email,
           cnic: Cnic.toString(),
           desc: Desc,
           address: Address,
+          companyId: CurrentCompany._id,
         });
         if (response.data.success) {
           successMessage(response.data.data.msg);
@@ -66,7 +67,7 @@ const CreateCompany = ({ open, setOpen }) => {
     }
   };
   return (
-    <ModalWrapper open={open} setOpen={setOpen} title={"Create Company"}>
+    <ModalWrapper open={open} setOpen={setOpen} title={"Edit Company"}>
       <div className="flex justify-center flex-col py-5">
         <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
           <TextField
@@ -134,7 +135,7 @@ const CreateCompany = ({ open, setOpen }) => {
               onClick={handleSubmit}
               className="w-[80%] hover:bg-[#394B92] py-3 hover:text-white border-2 border-[#394B92] text-[#394B92] font-[900] text-xl hover:rounded-xl transition-all ease-in-out duration-500"
             >
-              Create Company
+              Update Company
             </button>
           )}
         </div>
@@ -143,4 +144,4 @@ const CreateCompany = ({ open, setOpen }) => {
   );
 };
 
-export default CreateCompany;
+export default EditCompany;

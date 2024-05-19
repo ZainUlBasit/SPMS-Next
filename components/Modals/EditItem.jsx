@@ -4,17 +4,18 @@ import { FormControl, MenuItem, Select, TextField } from "@mui/material";
 import { fetchCompanies } from "@/utils/Slices/CompanySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorToast } from "@/utils/ShowToast";
-import { CreateItemApi } from "@/Https";
+import { CreateItemApi, UpdateItemApi } from "@/Https";
 import { successMessage } from "@/utils/ResponseMessage";
 import ProcessLoader from "../Loader/ProcessLoader";
+import { fetchItems } from "@/utils/Slices/ItemSlice";
 
-const CreateItem = ({ open, setOpen }) => {
-  const [code, setCode] = useState("");
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
-  const [desc, setDesc] = useState("");
-  const [purchase, setPurchase] = useState("");
-  const [sale, setSale] = useState("");
+const EditItem = ({ open, setOpen, CurrentItem }) => {
+  const [code, setCode] = useState(CurrentItem.code);
+  const [name, setName] = useState(CurrentItem.name);
+  const [company, setCompany] = useState(CurrentItem.companyId._id);
+  const [desc, setDesc] = useState(CurrentItem.desc);
+  const [purchase, setPurchase] = useState(CurrentItem.purchase);
+  const [sale, setSale] = useState(CurrentItem.sale);
   const [Loading, setLoading] = useState(false);
 
   const CompanyState = useSelector((state) => state.CompanyState);
@@ -35,17 +36,21 @@ const CreateItem = ({ open, setOpen }) => {
     if (!code || !name || !company || !purchase || !sale)
       return ErrorToast("Required fields are undefined!");
     try {
-      const response = await CreateItemApi({
-        code,
-        name,
-        companyId: company,
-        desc,
-        purchase: Number(purchase),
-        sale: Number(sale),
+      const response = await UpdateItemApi({
+        itemId: CurrentItem._id,
+        payload: {
+          code,
+          name,
+          companyId: company,
+          desc,
+          purchase: Number(purchase),
+          sale: Number(sale),
+        },
       });
+      console.log(response);
       if (response.data.success) {
         successMessage(response.data.data.msg);
-        // dispatch(fetchItems());
+        dispatch(fetchItems());
         setOpen(false);
       }
     } catch (err) {
@@ -129,7 +134,7 @@ const CreateItem = ({ open, setOpen }) => {
               onClick={handleSubmit}
               className="w-[80%] hover:bg-[#394B92] py-3 hover:text-white border-2 border-[#394B92] text-[#394B92] font-[900] text-xl hover:rounded-xl transition-all ease-in-out duration-500"
             >
-              Create Item
+              Update Item
             </button>
           )}
         </div>
@@ -138,4 +143,4 @@ const CreateItem = ({ open, setOpen }) => {
   );
 };
 
-export default CreateItem;
+export default EditItem;

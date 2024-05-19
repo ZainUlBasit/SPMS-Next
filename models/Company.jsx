@@ -8,6 +8,9 @@ const companySchema = new mongoose.Schema({
   cnic: { type: String, required: true },
   desc: { type: String, required: true },
   address: { type: String, required: true },
+  total: { type: Number, required: true, default: 0 },
+  paid: { type: Number, required: true, default: 0 },
+  remaining: { type: Number, required: true, default: 0 },
 });
 
 export default mongoose.models.Company ||

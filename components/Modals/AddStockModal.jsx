@@ -10,40 +10,18 @@ import { fetchCompanies } from "@/utils/Slices/CompanySlice";
 import { successMessage } from "@/utils/ResponseMessage";
 import ProcessLoader from "../Loader/ProcessLoader";
 
-const CreateCompany = ({ open, setOpen }) => {
-  const [Name, setName] = useState("");
-  const [Contact, setContact] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Cnic, setCnic] = useState("");
-  const [Desc, setDesc] = useState("");
-  const [Address, setAddress] = useState("");
+const AddStockModal = ({ open, setOpen }) => {
+  const [ItemId, setItemId] = useState("");
+  const [NewStock, setNewStock] = useState("");
+
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
 
-    const schema = Joi.object({
-      Name: Joi.string().required(),
-      Contact: Joi.string().required(),
-      Email: Joi.string().required(),
-      Cnic: Joi.string().required(),
-      Desc: Joi.string().required(),
-      Address: Joi.string().required(),
-    });
-
-    // Validate input values
-    const { error } = schema.validate({
-      Name,
-      Contact: Contact.toString(),
-      Email,
-      Cnic: Cnic.toString(),
-      Desc,
-      Address,
-    });
-
-    if (error) {
-      alert(error.message);
+    if (!ItemId || !NewStock) {
+      alert("Required fields are undefined");
     } else {
       try {
         const response = await CreateCompanyApi({
@@ -143,4 +121,4 @@ const CreateCompany = ({ open, setOpen }) => {
   );
 };
 
-export default CreateCompany;
+export default AddStockModal;
