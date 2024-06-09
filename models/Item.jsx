@@ -4,7 +4,12 @@ import mongoose from "mongoose";
 const itemSchema = new mongoose.Schema({
   name: { type: String, required: true },
   code: { type: String, required: true },
-  companyId: { type: mongoose.Types.ObjectId, ref: "Company" },
+  companyId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Company",
+    required: true,
+  },
+  // companyId: { type: mongoose.Types.ObjectId, ref: "Company" },
   purchase: { type: Number, required: true },
   sale: { type: Number, required: true },
   desc: { type: String, required: true },

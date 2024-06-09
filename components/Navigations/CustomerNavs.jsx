@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import NavigationsBtn from "../Buttons/NavigationsBtn";
 import { IoInformationCircle } from "react-icons/io5";
 import { BsBuildingAdd } from "react-icons/bs";
@@ -10,15 +10,17 @@ import { FaUserPlus } from "react-icons/fa";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
 import { BiSolidReport } from "react-icons/bi";
 import NavigationWrapper from "./NavigationWrapper";
+import CreateCustomerModal from "../Modals/CreateCustomer";
 
 const CustomerNavs = () => {
+  const [OpenCreateModal, setOpenCreateModal] = useState(false);
   return (
     <NavigationWrapper>
       <NavigationsBtn
         Title={"Create New"}
         Icon={FaUserPlus}
         Width={"!max-w-[200px]"}
-        OnClick={() => {}}
+        OnClick={() => setOpenCreateModal(true)}
       />
       <NavigationsBtn
         Title={"Create Bill"}
@@ -44,6 +46,12 @@ const CustomerNavs = () => {
         Width={"!max-w-[200px]"}
         OnClick={() => {}}
       />
+      {OpenCreateModal && (
+        <CreateCustomerModal
+          OpenModal={OpenCreateModal}
+          setOpenModal={setOpenCreateModal}
+        />
+      )}
     </NavigationWrapper>
   );
 };

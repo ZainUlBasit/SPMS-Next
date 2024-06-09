@@ -7,9 +7,11 @@ import { IoIosCash } from "react-icons/io";
 import { TbFileReport, TbLayoutGridAdd } from "react-icons/tb";
 import NavigationWrapper from "./NavigationWrapper";
 import CreateItem from "../Modals/CreateItem";
+import AddStockModal from "../Modals/AddStockModal";
 
 const ItemNavs = () => {
   const [open, setOpen] = useState(false);
+  const [OpenStock, setOpenStock] = useState(false);
   return (
     <NavigationWrapper>
       <NavigationsBtn
@@ -28,9 +30,12 @@ const ItemNavs = () => {
         Title={"Add Stock"}
         Icon={TbLayoutGridAdd}
         Width={"!max-w-[220px]"}
-        OnClick={() => {}}
+        OnClick={() => setOpenStock(true)}
       />
-      {open && <CreateItem open={open} setOpen={setOpen} />}
+      {(open && <CreateItem open={open} setOpen={setOpen} />) ||
+        (OpenStock && (
+          <AddStockModal OpenModal={OpenStock} setOpenModal={setOpenStock} />
+        ))}
     </NavigationWrapper>
   );
 };

@@ -9,13 +9,10 @@ import NavigationWrapper from "./NavigationWrapper";
 import CreateCompany from "../Modals/CreateCompany";
 import { useRouter } from "next/navigation";
 
-const CompanyNavs = () => {
+const EmployeeNavs = () => {
   const router = useRouter();
   const [Open, setOpen] = useState(false);
 
-  const handleCreateNewClick = () => {
-    router.push("/company/create");
-  };
   const handleInfoClick = () => {
     router.push("/company");
   };
@@ -34,15 +31,15 @@ const CompanyNavs = () => {
         Width={"!max-w-[200px]"}
         OnClick={handleInfoClick}
       />
-      <NavigationsBtn
+      {/* <NavigationsBtn
         Title={"Ledger"}
         Icon={TbFileReport}
         Width={"!max-w-[200px]"}
         OnClick={() => {}}
-      />
-      {Open && <CreateCompany open={Open} setOpen={setOpen} />}
+      /> */}
+      {Open && <CreateEmployee open={Open} setOpen={setOpen} />}
     </NavigationWrapper>
   );
 };
 
-export default CompanyNavs;
+export default EmployeeNavs;

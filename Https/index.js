@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://spms.vercel.app/api",
+  baseURL: "http://localhost:3000/api",
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
@@ -38,4 +38,19 @@ export const GetCompanyApi = () => api.get("/company");
 export const CreateItemApi = (payload) => api.post("/item", payload);
 export const DeleteItemApi = (payload) => api.post("/item/delete", payload);
 export const UpdateItemApi = (payload) => api.patch("/item", payload);
+export const UpdateItemQtyApi = (payload) => api.post("/item/qty", payload);
 export const GetItemApi = () => api.get("/item");
+
+// Customer REQUESTS
+export const CreateCustomerApi = (payload) => api.post("/customer", payload);
+export const GetCustomerApi = () => api.get("/customer");
+export const UpdateCustomerApi = (payload) => api.patch("/customer", payload);
+export const DeleteCustomerApi = (payload) =>
+  api.post("/customer/delete", payload);
+
+// Employee Requests
+export const CreateEmployeeApi = (payload) => api.post("/employee", payload);
+export const UpdateEmployeeApi = (payload) => api.patch("/employee", payload);
+export const DeleteEmployeeApi = (payload) =>
+  api.post("/employee/delete", payload);
+export const GetEmployeeApi = () => api.get("/employee");

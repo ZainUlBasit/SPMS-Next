@@ -10,12 +10,12 @@ import ProcessLoader from "../Loader/ProcessLoader";
 import { fetchItems } from "@/utils/Slices/ItemSlice";
 
 const EditItem = ({ open, setOpen, CurrentItem }) => {
-  const [code, setCode] = useState(CurrentItem.code);
-  const [name, setName] = useState(CurrentItem.name);
-  const [company, setCompany] = useState(CurrentItem.companyId._id);
-  const [desc, setDesc] = useState(CurrentItem.desc);
-  const [purchase, setPurchase] = useState(CurrentItem.purchase);
-  const [sale, setSale] = useState(CurrentItem.sale);
+  const [code, setCode] = useState(CurrentItem?.code);
+  const [name, setName] = useState(CurrentItem?.name);
+  const [company, setCompany] = useState(CurrentItem?.companyId?._id);
+  const [desc, setDesc] = useState(CurrentItem?.desc);
+  const [purchase, setPurchase] = useState(CurrentItem?.purchase);
+  const [sale, setSale] = useState(CurrentItem?.sale);
   const [Loading, setLoading] = useState(false);
 
   const CompanyState = useSelector((state) => state.CompanyState);

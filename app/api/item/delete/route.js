@@ -11,7 +11,8 @@ connectDB();
 export async function GET(req, res) {
   let items;
   try {
-    items = await Item.find().populate("companyId");
+    items = await Item.find();
+    console.log("items:", items);
     if (!items) return createError(res, 404, "Items record not found!");
     return successMessage(res, items, null);
   } catch (err) {

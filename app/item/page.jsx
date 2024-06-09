@@ -6,19 +6,18 @@ import EditItem from "@/components/Modals/EditItem";
 import Search from "@/components/Search/Search";
 import ItemInfoTable from "@/components/Tables/ItemInfoTable";
 import TableWrapper from "@/components/Tables/TableWrapper";
-import { SuccessToast } from "@/utils/ShowToast";
 import { fetchItems } from "@/utils/Slices/ItemSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ItemInfo() {
   const dispatch = useDispatch();
-  const ItemState = useSelector((state) => state.ItemState);
   const [SearchText, setSearchText] = useState("");
   const [ItemId, setItemId] = useState("");
   const [OpenEditModal, setOpenEditModal] = useState(false);
   const [OpenDeleteModal, setOpenDeleteModal] = useState(false);
   const [Loading, setLoading] = useState(false);
+  const ItemState = useSelector((state) => state.ItemState);
 
   useEffect(() => {
     dispatch(fetchItems());
@@ -44,7 +43,6 @@ export default function ItemInfo() {
           />
         </TableWrapper>
       )}
-
       {OpenEditModal && (
         <EditItem
           open={OpenEditModal}

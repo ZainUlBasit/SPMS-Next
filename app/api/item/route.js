@@ -53,7 +53,7 @@ export async function POST(req, res) {
 export async function PATCH(req, res) {
   const reqBody = await req.json();
   const { itemId, payload } = reqBody;
-  // console.log(itemId, payload);
+  console.log(itemId, payload);
 
   if (!itemId || !payload)
     return createError(res, 422, "Required fields are undefined!");
