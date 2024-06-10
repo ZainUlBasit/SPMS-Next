@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar/Navbar";
 import CompanyNavs from "@/components/Navigations/CompanyNavs";
+import EmployeeNavs from "@/components/Navigations/EmployeeNavs";
 import { Inter } from "next/font/google";
 import { Roboto } from "next/font/google";
 
@@ -13,7 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         <Navbar />
-        <CompanyNavs />
+        <EmployeeNavs />
         {children}
       </body>
     </html>

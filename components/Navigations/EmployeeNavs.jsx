@@ -14,7 +14,7 @@ const EmployeeNavs = () => {
   const [Open, setOpen] = useState(false);
 
   const handleInfoClick = () => {
-    router.push("/company");
+    router.push("/employee");
   };
 
   return (
@@ -37,7 +37,7 @@ const EmployeeNavs = () => {
         Width={"!max-w-[200px]"}
         OnClick={() => {}}
       /> */}
-      {Open && <CreateEmployee open={Open} setOpen={setOpen} />}
+      {/* {Open && <CreateEmployee open={Open} setOpen={setOpen} />} */}
     </NavigationWrapper>
   );
 };
