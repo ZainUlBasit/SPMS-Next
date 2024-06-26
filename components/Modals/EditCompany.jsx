@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import ModalWrapper from "./ModalWrapper";
-import { FormControl, TextField } from "@mui/material";
 import Joi from "joi";
 import { SuccessToast, WarningToast } from "@/utils/ShowToast";
-import { loadGetInitialProps } from "next/dist/shared/lib/utils";
-import { CreateCompanyApi, UpdateCompanyApi } from "@/Https";
+import { UpdateCompanyApi } from "@/Https";
 import { useDispatch } from "react-redux";
 import { fetchCompanies } from "@/utils/Slices/CompanySlice";
 import { successMessage } from "@/utils/ResponseMessage";
 import ProcessLoader from "../Loader/ProcessLoader";
+import CustomInput from "../Inputs/CustomInput";
 
 const EditCompany = ({ open, setOpen, CurrentCompany }) => {
   const [Name, setName] = useState(CurrentCompany.name);
@@ -19,6 +18,7 @@ const EditCompany = ({ open, setOpen, CurrentCompany }) => {
   const [Address, setAddress] = useState(CurrentCompany.address);
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -44,6 +44,7 @@ const EditCompany = ({ open, setOpen, CurrentCompany }) => {
 
     if (error) {
       alert(error.message);
+      setLoading(false); // Set loading to false if validation fails
     } else {
       try {
         const response = await UpdateCompanyApi({
@@ -66,68 +67,58 @@ const EditCompany = ({ open, setOpen, CurrentCompany }) => {
       setLoading(false);
     }
   };
+
   return (
     <ModalWrapper open={open} setOpen={setOpen} title={"Edit Company"}>
-      <div className="flex justify-center flex-col py-5">
-        <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-          <TextField
-            id="outlined-basic"
-            label="Name"
-            variant="outlined"
-            value={Name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-          <TextField
-            id="outlined-basic"
-            label="Contact"
-            variant="outlined"
-            type="number"
-            value={Contact}
-            onChange={(e) => setContact(e.target.value)}
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-          <TextField
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            type="email"
-            value={Email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-          <TextField
-            id="outlined-basic"
-            label="CNIC"
-            variant="outlined"
-            value={Cnic}
-            type="number"
-            onChange={(e) => setCnic(e.target.value)}
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-          <TextField
-            id="outlined-basic"
-            label="Description"
-            variant="outlined"
-            type="text"
-            value={Desc}
-            onChange={(e) => setDesc(e.target.value)}
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-          <TextField
-            id="outlined-basic"
-            label="Address"
-            variant="outlined"
-            value={Address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        </FormControl>
-        <div className="w-full flex justify-center mt-5">
+      <div className="flex justify-center flex-col py-5 gap-y-4">
+        <CustomInput
+          id="name"
+          label="Name"
+          placeholder="Enter Name"
+          Value={Name}
+          setValue={setName}
+        />
+        <CustomInput
+          id="contact"
+          label="Contact"
+          placeholder="Enter Contact"
+          type="number"
+          Value={Contact}
+          setValue={setContact}
+        />
+        <CustomInput
+          id="email"
+          label="Email"
+          placeholder="Enter Email"
+          type="email"
+          Value={Email}
+          setValue={setEmail}
+        />
+        <CustomInput
+          id="cnic"
+          label="CNIC"
+          placeholder="Enter CNIC"
+          type="number"
+          Value={Cnic}
+          setValue={setCnic}
+        />
+        <CustomInput
+          id="desc"
+          label="Description"
+          placeholder="Enter Description"
+          type="text"
+          Value={Desc}
+          setValue={setDesc}
+        />
+        <CustomInput
+          id="address"
+          label="Address"
+          placeholder="Enter Address"
+          type="text"
+          Value={Address}
+          setValue={setAddress}
+        />
+        <div className="w-full flex justify-center mt-2">
           {Loading ? (
             <ProcessLoader />
           ) : (

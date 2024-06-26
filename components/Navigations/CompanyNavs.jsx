@@ -19,6 +19,9 @@ const CompanyNavs = () => {
   const handleInfoClick = () => {
     router.push("/company");
   };
+  const handleLedgerClick = () => {
+    router.push("/company/ledger");
+  };
 
   return (
     <NavigationWrapper>
@@ -38,7 +41,7 @@ const CompanyNavs = () => {
         Title={"Ledger"}
         Icon={TbFileReport}
         Width={"!max-w-[200px]"}
-        OnClick={() => {}}
+        OnClick={handleLedgerClick}
       />
       {Open && <CreateCompany open={Open} setOpen={setOpen} />}
     </NavigationWrapper>

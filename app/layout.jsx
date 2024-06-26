@@ -8,7 +8,7 @@ import StoreProvider from "./StoreProvider";
 import ProtectedRoutes from "@/components/Wrapper/ProtectedRoutes";
 
 const roboto = Roboto({
-  weight: "400",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 

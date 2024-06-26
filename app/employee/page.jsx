@@ -1,5 +1,6 @@
 "use client";
 import PageLoader from "@/components/Loader/PageLoader";
+import EditEmployeeModal from "@/components/Modals/EditEmployeeModal";
 import Search from "@/components/Search/Search";
 import EmployeeInfoTable from "@/components/Tables/EmployeeInfoTable";
 import TableWrapper from "@/components/Tables/TableWrapper";
@@ -39,17 +40,17 @@ export default function EmployeeeInfo() {
             Rows={EmployeeState.data}
           />
 
-          {/* {OpenEditModal && (
-            <EditCustomerModal
+          {OpenEditModal && (
+            <EditEmployeeModal
               OpenModal={OpenEditModal}
               setOpenModal={setOpenEditModal}
-              customerData={EmployeeState.data.find(
+              CurrentEmployee={EmployeeState.data.find(
                 (dt) => dt._id === CustomerID
               )}
             />
           )}
 
-          {OpenDeleteModal && (
+          {/* {OpenDeleteModal && (
             <DeleteModal
               Open={OpenDeleteModal}
               setOpen={setOpenDeleteModal}

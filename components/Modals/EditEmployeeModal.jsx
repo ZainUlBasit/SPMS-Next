@@ -1,24 +1,33 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalWrapper from "./ModalWrapper";
 import { useDispatch } from "react-redux";
 import ProcessLoader from "../Loader/ProcessLoader";
-import { CreateCustomerApi } from "@/Https"; // Make sure to define this API function
+import { UpdateEmployeeApi } from "@/Https"; // Make sure to define this API function
 import { ErrorToast, SuccessToast } from "@/utils/ShowToast";
-import { fetchCustomers } from "@/utils/Slices/CustomerSlice"; // Define this slice to manage customer data
 import CustomInput from "../Inputs/CustomInput";
+import { fetchEmployees } from "@/utils/Slices/EmployeeSlice";
 
-const CreateCustomerModal = ({ OpenModal, setOpenModal }) => {
+const EditEmployeeModal = ({ OpenModal, setOpenModal, CurrentEmployee }) => {
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
     email: "",
-    password: "",
     cnic: "",
     address: "",
-    ref: "",
-    page: "",
   });
+
+  useEffect(() => {
+    if (CurrentEmployee) {
+      setFormData({
+        name: CurrentEmployee.name,
+        contact: CurrentEmployee.contact,
+        email: CurrentEmployee.email,
+        cnic: CurrentEmployee.cnic,
+        address: CurrentEmployee.address,
+      });
+    }
+  }, [CurrentEmployee]);
 
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -31,29 +40,22 @@ const CreateCustomerModal = ({ OpenModal, setOpenModal }) => {
     setLoading(true);
     e.preventDefault();
 
-    const { name, contact, email, password, cnic, address, ref, page } =
-      formData;
+    const { name, contact, email, cnic, address } = formData;
 
-    if (
-      !name ||
-      !contact ||
-      !email ||
-      !password ||
-      !cnic ||
-      !address ||
-      !ref ||
-      page === ""
-    ) {
+    if (!name || !contact || !email || !cnic || !address) {
       ErrorToast("Required fields are undefined");
       setLoading(false);
       return;
     }
 
     try {
-      const response = await CreateCustomerApi(formData);
+      const response = await UpdateEmployeeApi({
+        employeeId: CurrentEmployee._id,
+        payload: formData,
+      }); // Pass the employee ID for updating
       if (response.data.success) {
         SuccessToast(response.data.message);
-        dispatch(fetchCustomers()); // Ensure you have a function to fetch customer data
+        dispatch(fetchEmployees()); // Ensure you have a function to fetch employee data
         setOpenModal(false);
       }
     } catch (err) {
@@ -66,7 +68,7 @@ const CreateCustomerModal = ({ OpenModal, setOpenModal }) => {
     <ModalWrapper
       open={OpenModal}
       setOpen={setOpenModal}
-      title={"Add Customer"}
+      title={"Edit Employee"}
     >
       <div className="flex flex-col justify-center py-5">
         <div className="flex flex-wrap gap-x-4 gap-y-4">
@@ -99,17 +101,6 @@ const CreateCustomerModal = ({ OpenModal, setOpenModal }) => {
               required
             />
             <CustomInput
-              id="password"
-              Type="password"
-              label="Password"
-              placeholder="Enter Password"
-              Value={formData.password}
-              setValue={(value) => handleChange("password", value)}
-              required
-            />
-          </div>
-          <div className="flex flex-col gap-y-4">
-            <CustomInput
               id="cnic"
               Type="text"
               label="CNIC"
@@ -127,24 +118,6 @@ const CreateCustomerModal = ({ OpenModal, setOpenModal }) => {
               setValue={(value) => handleChange("address", value)}
               required
             />
-            <CustomInput
-              id="ref"
-              Type="text"
-              label="Ref"
-              placeholder="Enter Ref"
-              Value={formData.ref}
-              setValue={(value) => handleChange("ref", value)}
-              required
-            />
-            <CustomInput
-              id="page"
-              Type="number"
-              label="Page"
-              placeholder="Enter Page"
-              Value={formData.page}
-              setValue={(value) => handleChange("page", value)}
-              required
-            />
           </div>
         </div>
         <div className="w-full flex justify-center mt-5">
@@ -153,9 +126,9 @@ const CreateCustomerModal = ({ OpenModal, setOpenModal }) => {
           ) : (
             <button
               onClick={handleSubmit}
-              className="w-[80%] hover:bg-[#394B92] py-3 hover:text-white border-2 border-[#394B92] text-[#394B92] font-[900] text-xl hover:rounded-xl transition-all ease-in-out duration-500"
+              className="w-[60%] hover:bg-[rgba(14,36,128,1)] py-2 hover:text-white border-2 border-[rgba(14,36,128,1)] text-[rgba(14,36,128,1)] font-[900] text-xl hover:rounded-xl transition-all ease-in-out duration-500"
             >
-              Add Customer
+              Update Employee
             </button>
           )}
         </div>
@@ -164,4 +137,4 @@ const CreateCustomerModal = ({ OpenModal, setOpenModal }) => {
   );
 };
 
-export default CreateCustomerModal;
+export default EditEmployeeModal;

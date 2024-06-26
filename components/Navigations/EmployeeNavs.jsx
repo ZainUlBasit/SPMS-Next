@@ -8,6 +8,7 @@ import { TbFileReport } from "react-icons/tb";
 import NavigationWrapper from "./NavigationWrapper";
 import CreateCompany from "../Modals/CreateCompany";
 import { useRouter } from "next/navigation";
+import CreateEmployeeModal from "../Modals/CreateEmployeeModal";
 
 const EmployeeNavs = () => {
   const router = useRouter();
@@ -37,7 +38,7 @@ const EmployeeNavs = () => {
         Width={"!max-w-[200px]"}
         OnClick={() => {}}
       /> */}
-      {/* {Open && <CreateEmployee open={Open} setOpen={setOpen} />} */}
+      {Open && <CreateEmployeeModal OpenModal={Open} setOpenModal={setOpen} />}
     </NavigationWrapper>
   );
 };

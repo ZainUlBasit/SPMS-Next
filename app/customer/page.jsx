@@ -13,12 +13,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CustomerInfo() {
-  const CustomerState = useSelector((state) => state.CustomerState);
   const [CustomerID, setCustomerID] = useState("");
   const [OpenEditModal, setOpenEditModal] = useState(false);
   const [OpenDeleteModal, setOpenDeleteModal] = useState(false);
   const [SearchText, setSearchText] = useState("");
   const [Loading, setLoading] = useState(false);
+  const CustomerState = useSelector((state) => state.CustomerState);
 
   const dispatch = useDispatch();
 

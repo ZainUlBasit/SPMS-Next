@@ -8,6 +8,6 @@ export const CustomerInfoColumns = [
   { title: "Ref", id: "ref" },
   { title: "Page", id: "page" },
   { title: "Total", id: "total" },
-  { title: "Remaining", id: "remaining" },
   { title: "Paid", id: "paid" },
+  { title: "Remaining", id: "remaining" },
 ];

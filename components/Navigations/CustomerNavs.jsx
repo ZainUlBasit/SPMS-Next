@@ -11,9 +11,15 @@ import { VscGitPullRequestCreate } from "react-icons/vsc";
 import { BiSolidReport } from "react-icons/bi";
 import NavigationWrapper from "./NavigationWrapper";
 import CreateCustomerModal from "../Modals/CreateCustomer";
+import { useRouter } from "next/navigation";
 
 const CustomerNavs = () => {
   const [OpenCreateModal, setOpenCreateModal] = useState(false);
+  const router = useRouter();
+
+  const handleLedgerClick = () => {
+    router.push("/customer/ledger");
+  };
   return (
     <NavigationWrapper>
       <NavigationsBtn
@@ -32,7 +38,9 @@ const CustomerNavs = () => {
         Title={"Info"}
         Icon={IoInformationCircle}
         Width={"!max-w-[200px]"}
-        OnClick={() => {}}
+        OnClick={() => {
+          router.push("/customer");
+        }}
       />
       <NavigationsBtn
         Title={"Item Return"}
@@ -44,7 +52,9 @@ const CustomerNavs = () => {
         Title={"Ledger"}
         Icon={BiSolidReport}
         Width={"!max-w-[200px]"}
-        OnClick={() => {}}
+        OnClick={() => {
+          handleLedgerClick();
+        }}
       />
       {OpenCreateModal && (
         <CreateCustomerModal

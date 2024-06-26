@@ -4,6 +4,8 @@ import CompanyReducer from "@/utils/Slices/CompanySlice";
 import ItemSlice from "@/utils/Slices/ItemSlice";
 import CustomerSlice from "@/utils/Slices/CustomerSlice";
 import EmployeeSlice from "@/utils/Slices/EmployeeSlice";
+import CompanyItemLegderSlice from "@/utils/Slices/CompanyItemLegderSlice";
+import PaymentSlice from "@/utils/Slices/PaymentSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -13,6 +15,8 @@ export const makeStore = () => {
       ItemState: ItemSlice,
       CustomerState: CustomerSlice,
       EmployeeState: EmployeeSlice,
+      CompanyItemLegderState: CompanyItemLegderSlice,
+      PaymentState: PaymentSlice,
     },
   });
 };
