@@ -56,7 +56,7 @@ export default function Logout({ Open, setOpen }) {
                       // Clear localStorage
                       localStorage.clear();
                       // Navigate to login or home page
-                      router.push("/"); // Adjust the path as per your application
+                      window.location.href = "/"; // Adjust the path as per your application
                       setOpen(false);
                     }, 3000);
                   }}
