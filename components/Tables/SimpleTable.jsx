@@ -26,7 +26,7 @@ const TableWrapper = styled.div`
 
 const BannerHeader = styled.h1.attrs({
   className:
-    "relative bg-[#0E2480] py-[20px] text-xl flex items-center rounded-t-lg pl-10 text-white justify-center font-[Roboto] font-[700] text-[1.4rem] select-none",
+    "relative bg-[#000] py-[20px] text-xl flex items-center rounded-t-lg pl-10 text-white justify-center font-[Roboto] font-[700] text-[1.4rem] select-none",
 })`
   & {
     font-size: ${(props) => (props.fontSize ? props.fontSize : "1.4rem")};
@@ -77,7 +77,7 @@ export default function SimpleTable({ rows, columns, title }) {
       <BannerHeader padding="20px 0px">{title.toUpperCase()}</BannerHeader>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer
-          className="border-[2px] border-[#0E2480] border-t-white"
+          className="border-[2px] border-[#000] border-t-white"
           sx={{ maxHeight: 550, borderRadius: "0px 0px 10px 10px" }}
         >
           <Table stickyHeader aria-label="sticky table">
@@ -90,7 +90,7 @@ export default function SimpleTable({ rows, columns, title }) {
                     className="select-none"
                     style={{
                       minWidth: column.minWidth,
-                      backgroundColor: "#0E2480",
+                      backgroundColor: "#000",
                       color: "white",
                       fontWeight: "bold",
                       fontSize: "1.1rem",

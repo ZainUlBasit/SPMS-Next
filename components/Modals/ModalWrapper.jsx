@@ -40,8 +40,8 @@ export default function ModalWrapper({ open, setOpen, children, title }) {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <div className="flex flex-col p-4 px-6 !text-[#0e2480]">
-              <div className="flex w-full justify-center items-center font-bold text-3xl border-b-[3px] border-b-[#0e2480] py-4 pb-6">
+            <div className="flex flex-col p-4 px-6 !text-[#000]">
+              <div className="flex w-full justify-center items-center font-bold text-3xl border-b-[3px] border-b-[#000] py-4 pb-6">
                 {title}
               </div>
               {children}

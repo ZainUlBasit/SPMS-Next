@@ -17,6 +17,7 @@ import { Drawer } from "@mui/material";
 import NavItem from "./NavItem";
 import { NavData } from "@/utils/NavData";
 import { useRouter } from "next/navigation";
+import Logout from "../Modals/Logout";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -26,19 +27,31 @@ const Navbar = () => {
     setOpen(newOpen);
   };
 
+  const [OpenLoggingOutModal, setOpenLoggingOutModal] = useState(false);
+
+  const handleLogout = () => {
+    setOpenLoggingOutModal(true);
+  };
+
   return (
     <>
       <div className="flex justify-between items-center w-full p-5 px-8 fixed bg-[aliceblue] shadow-xl">
         <div className="flex items-center gap-x-4">
           <BsFillMenuButtonWideFill
-            className="text-3xl text-[#394b92] hover:text-[#0E2480] cursor-pointer"
+            className="text-3xl text-[#000] hover:text-gray-600 cursor-pointer"
             onClick={toggleDrawer(true)}
           />
           <Image src={LogoName} className="w-[150px] h-auto" />
         </div>
         <div className="flex gap-x-4">
-          <FaUserCog className="text-3xl text-[#394b92] hover:text-[#0E2480] cursor-pointer" />
-          <IoExit className="text-3xl text-[#394b92] hover:text-[#0E2480] cursor-pointer" />
+          <FaUserCog
+            className="text-3xl text-[#000] hover:text-gray-600 cursor-pointer"
+            onClick={() => router.push("/settings")} // Example: Navigate to settings page
+          />
+          <IoExit
+            className="text-3xl text-[#000] hover:text-gray-600 cursor-pointer"
+            onClick={handleLogout} // Logout action
+          />
         </div>
       </div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -50,6 +63,7 @@ const Navbar = () => {
             {NavData.map((dt) => {
               return (
                 <NavItem
+                  key={dt.title}
                   Title={dt.title}
                   Icon={dt.Icon}
                   onClick={() => {
@@ -61,6 +75,9 @@ const Navbar = () => {
           </div>
         </div>
       </Drawer>
+      {OpenLoggingOutModal && (
+        <Logout Open={OpenLoggingOutModal} setOpen={setOpenLoggingOutModal} />
+      )}
     </>
   );
 };

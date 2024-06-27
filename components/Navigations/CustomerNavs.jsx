@@ -32,7 +32,9 @@ const CustomerNavs = () => {
         Title={"Create Bill"}
         Icon={MdOutlineCreateNewFolder}
         Width={"!max-w-[200px]"}
-        OnClick={() => {}}
+        OnClick={() => {
+          router.push("/customer/create-bill");
+        }}
       />
       <NavigationsBtn
         Title={"Info"}

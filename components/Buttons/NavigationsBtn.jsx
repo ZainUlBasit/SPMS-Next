@@ -12,7 +12,7 @@ const NavigationsBtn = ({ Icon, Title, Width, OnClick }) => {
   };
   return (
     <motion.div
-      className={`hover:bg-[#394b92] bg-[#0E2480] hover:rounded-lg text-white w-[90%] py-3 transition-all ease-in-out duration-500 cursor-pointer ${
+      className={`hover:bg-gray-600 bg-[#000] hover:rounded-lg text-white w-[90%] py-3 transition-all ease-in-out duration-500 cursor-pointer ${
         Width ? Width : ""
       }`}
       variants={item}

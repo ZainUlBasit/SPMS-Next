@@ -10,7 +10,6 @@ const ProtectedRoutes = ({ children }) => {
   useEffect(() => {
     const currentToken = localStorage.getItem("token");
     const currentUser = JSON.parse(localStorage.getItem("user"));
-    console.log(currentToken);
     if (!currentToken) {
       dispatch(SetAuth(currentUser));
       router.push("/");

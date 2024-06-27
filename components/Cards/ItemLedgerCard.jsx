@@ -55,9 +55,9 @@ const ItemLedgerCard = ({
   //   const [CurrentCompany, setCurrentCompany] = useState("");
 
   return (
-    <div className="w-fit mx-auto bg-[aliceblue] rounded-xl shadow-[rgba(0,0,0,0.16)_0px_1px_4px,#0E2480_0px_0px_0px_3px] overflow-hidden">
+    <div className="w-fit mx-auto bg-[aliceblue] rounded-xl shadow-[rgba(0,0,0,0.16)_0px_1px_4px,#000_0px_0px_0px_3px] overflow-hidden">
       <div className="px-4 py-5 flex justify-center items-center flex-col">
-        <h2 className="text-3xl mb-4 text-[#0E2480] font-[700]">Item Ledger</h2>
+        <h2 className="text-3xl mb-4 text-[#000] font-[700]">Item Ledger</h2>
         <form onSubmit={handleSubmit}>
           {/* First Row: Customer */}
           <div className="my-4 mt-6">
@@ -105,14 +105,14 @@ const ItemLedgerCard = ({
               <Typography
                 sx={{
                   p: 2,
-                  borderColor: "#0E2480",
-                  backgroundColor: "#0E2480",
+                  borderColor: "#000",
+                  backgroundColor: "#000",
                   width: "100%",
                   overflow: "hidden",
                   borderRadius: "25px",
                 }}
               >
-                <div className="bg-[#0E2480] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
+                <div className="bg-[#000] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
                     {Users.map((dt) => (
                       <div
@@ -182,7 +182,7 @@ const ItemLedgerCard = ({
           {/* Third Row: Submit Button */}
           <div className="flex gap-x-3 items-center justify-center py-4">
             <motion.div
-              className={`hover:bg-[#394b92] bg-[#0E2480] hover:rounded-lg text-white w-fit px-3 py-3 transition-all ease-in-out duration-500 cursor-pointer`}
+              className={`hover:bg-[#394b92] bg-[#000] hover:rounded-lg text-white w-fit px-3 py-3 transition-all ease-in-out duration-500 cursor-pointer`}
               variants={item}
               onClick={() => {
                 setOpenCashLedger(false);
@@ -196,7 +196,7 @@ const ItemLedgerCard = ({
               </div>
             </motion.div>
             <motion.div
-              className={`hover:bg-[#394b92] bg-[#0E2480] hover:rounded-lg text-white w-fit px-3 py-3 transition-all ease-in-out duration-500 cursor-pointer`}
+              className={`hover:bg-[#394b92] bg-[#000] hover:rounded-lg text-white w-fit px-3 py-3 transition-all ease-in-out duration-500 cursor-pointer`}
               variants={item}
               onClick={() => {
                 setOpenItemLedger(false);

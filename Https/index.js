@@ -63,3 +63,7 @@ export const GetEmployeeApi = () => api.get("/employee");
 export const CreatePaymentApi = (payload) => api.post("/payment", payload);
 export const GetPaymentsByIdApi = (payload) =>
   api.post("/payment/get_by_id", payload);
+
+// Transactions Request
+export const CheckInvoiceNoApi = (payload) =>
+  api.post("/transaction/check-invoice-no", payload);

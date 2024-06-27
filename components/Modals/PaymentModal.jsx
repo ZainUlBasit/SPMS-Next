@@ -189,14 +189,14 @@ const PaymentModal = ({ OpenModal, setOpenModal }) => {
               <Typography
                 sx={{
                   p: 2,
-                  borderColor: "#0E2480",
-                  backgroundColor: "#0E2480",
+                  borderColor: "#000",
+                  backgroundColor: "#000",
                   width: "400px",
                   overflow: "hidden",
                   borderRadius: "25px",
                 }}
               >
-                <div className="bg-[#0E2480] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
+                <div className="bg-[#000] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
                     {[
                       { _id: 1, name: "Company" },
@@ -256,14 +256,14 @@ const PaymentModal = ({ OpenModal, setOpenModal }) => {
               <Typography
                 sx={{
                   p: 2,
-                  borderColor: "#0E2480",
-                  backgroundColor: "#0E2480",
+                  borderColor: "#000",
+                  backgroundColor: "#000",
                   width: "400px",
                   overflow: "hidden",
                   borderRadius: "25px",
                 }}
               >
-                <div className="bg-[#0E2480] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
+                <div className="bg-[#000] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
                     {userType === 1 &&
                       CompanyState.data.map((dt) => (
@@ -381,14 +381,14 @@ const PaymentModal = ({ OpenModal, setOpenModal }) => {
               <Typography
                 sx={{
                   p: 2,
-                  borderColor: "#0E2480",
-                  backgroundColor: "#0E2480",
+                  borderColor: "#000",
+                  backgroundColor: "#000",
                   width: "400px",
                   overflow: "hidden",
                   borderRadius: "25px",
                 }}
               >
-                <div className="bg-[#0E2480] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
+                <div className="bg-[#000] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
                     {paymentTypeOptions.map((option) => (
                       <div
@@ -448,14 +448,14 @@ const PaymentModal = ({ OpenModal, setOpenModal }) => {
                   <Typography
                     sx={{
                       p: 2,
-                      borderColor: "#0E2480",
-                      backgroundColor: "#0E2480",
+                      borderColor: "#000",
+                      backgroundColor: "#000",
                       width: "400px",
                       overflow: "hidden",
                       borderRadius: "25px",
                     }}
                   >
-                    <div className="bg-[#0E2480] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
+                    <div className="bg-[#000] text-white font-[Quicksand] flex flex-col justify-center items-center rounded-[50px]">
                       <div className="w-full flex flex-col justify-between gap-y-3 items-start">
                         {BankNameData.map(({ _id, name }) => (
                           <div

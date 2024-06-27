@@ -24,7 +24,7 @@ const CustomInput = ({
         required={required}
         id={id}
         placeholder={placeholder}
-        className="px-3 py-2 border border-[#0E2480] rounded-[7.94px] w-full outline-none InputText shadow-[#0e25802d_0px_2px_8px_0px] font-bold text-[15px] placeholder:font-normal h-full"
+        className="px-3 py-2 border border-[#000] rounded-[7.94px] w-full outline-none InputText shadow-[#0e25802d_0px_2px_8px_0px] font-bold text-[15px] placeholder:font-normal h-full"
         value={Value}
         readOnly={readonly ? true : false}
         onChange={(e) => {

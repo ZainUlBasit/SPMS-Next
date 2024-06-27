@@ -37,14 +37,14 @@ export default function DeleteModal({ Open, setOpen, onSubmit, Loading }) {
       >
         <Fade in={Open}>
           <Box sx={style}>
-            <div className="bg-[#fff] text-[#0e2480] p-8 w-[670px] max767:w-[100%] flex flex-col justify-center items-center font-[Quicksand] rounded-[25px] overflow-hidden">
+            <div className="bg-[#fff] text-[#000] p-8 w-[670px] max767:w-[100%] flex flex-col justify-center items-center font-[Quicksand] rounded-[25px] overflow-hidden">
               <div className="text-center text-[1.8rem] max767:text-[1.2rem] font-[700] mb-8 mt-3">
                 Are you sure want to Delete ?
               </div>
               <div className="bg-[#90898E] h-[2px] w-[95%]" />
               <div className="flex flex-col w-full justify-center items-center my-10">
                 <button
-                  className={`mt-[20px] w-[297px] h-fit py-2 bg-[#0e2480] hover:bg-[#394B93] border-[2px] border-[#0e2480] hover:border-[#394B93] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                  className={`mt-[20px] w-[297px] h-fit py-2 bg-[#000] hover:bg-[#394B93] border-[2px] border-[#000] hover:border-[#394B93] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
                   onClick={onSubmit}
                 >
                   {Loading ? "Deleting..." : "Yes , Delete"}

@@ -55,7 +55,7 @@ export default function PaymentInfo() {
       <FormControl component="fieldset">
         <FormLabel
           component="legend"
-          className="select-none text-[#0E2480] font-bold"
+          className="select-none text-[#000] font-bold"
         >
           Select User Type
         </FormLabel>
