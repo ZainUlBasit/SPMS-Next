@@ -48,7 +48,9 @@ const CustomerNavs = () => {
         Title={"Item Return"}
         Icon={VscGitPullRequestCreate}
         Width={"!max-w-[200px]"}
-        OnClick={() => {}}
+        OnClick={() => {
+          router.push("/customer/create-return-bill");
+        }}
       />
       <NavigationsBtn
         Title={"Ledger"}

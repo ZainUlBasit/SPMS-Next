@@ -339,16 +339,6 @@ export default function CompanyLedger() {
           </div>
         </>
       )}
-      {!BillNoExists && NewItems.length !== 0 && (
-        <div className="flex gap-x-2">
-          <div className="px-2 py-2 border-2 border-black hover:rounded-lg transition-all ease-in-out duration-500 hover:bg-gray-600 bg-black text-white hover:text-white cursor-pointer w-[200px] flex justify-center items-center font-bold">
-            Add
-          </div>
-          <div className="px-2 py-2 border-2 border-black hover:rounded-lg transition-all ease-in-out duration-500 hover:bg-gray-600 bg-black text-white hover:text-white cursor-pointer w-[200px] flex justify-center items-center font-bold">
-            Add & Print
-          </div>
-        </div>
-      )}
     </div>
   );
 }

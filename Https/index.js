@@ -67,3 +67,6 @@ export const GetPaymentsByIdApi = (payload) =>
 // Transactions Request
 export const CheckInvoiceNoApi = (payload) =>
   api.post("/transaction/check-invoice-no", payload);
+
+// Statistics
+export const GetCompanyInfoStatsApi = () => api.get("/stats/company_info");
