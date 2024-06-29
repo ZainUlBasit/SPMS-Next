@@ -93,7 +93,7 @@ export default function CompanyStatInfo({ CompanyInfo }) {
               }}
               align="center"
             >
-              <div className="max767:text-[1.1rem]">Monthly Stock (PKR)</div>
+              <div className="max767:text-[1.1rem]">Monthly Payments (PKR)</div>
             </TableCell>
           </TableRow>
         </TableHead>

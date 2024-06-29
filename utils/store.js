@@ -7,6 +7,9 @@ import EmployeeSlice from "@/utils/Slices/EmployeeSlice";
 import CompanyItemLegderSlice from "@/utils/Slices/CompanyItemLegderSlice";
 import PaymentSlice from "@/utils/Slices/PaymentSlice";
 import CompanyInfoStatSlice from "@/utils/Slices/CompanyInfoStatSlice";
+import TopTenStatSlice from "@/utils/Slices/TopTenStatSlice";
+import AccountsStatSlice from "@/utils/Slices/AccountsStatSlice";
+import CustomerItemLegderSlice from "@/utils/Slices/CustomerItemLegderSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -19,6 +22,9 @@ export const makeStore = () => {
       CompanyItemLegderState: CompanyItemLegderSlice,
       PaymentState: PaymentSlice,
       CompanyStatState: CompanyInfoStatSlice,
+      TopTenState: TopTenStatSlice,
+      AccountsState: AccountsStatSlice,
+      CustomerItemLegderState: CustomerItemLegderSlice,
     },
   });
 };

@@ -1,5 +1,9 @@
 "use client";
-import { CheckInvoiceNoApi } from "@/Https";
+import {
+  CheckInvoiceNoApi,
+  CreatePaymentApi,
+  CreateTransactionApi,
+} from "@/Https";
 import { BillItemColumns } from "@/assets/Columns/BillItemColumns";
 import { CashLedgerColumns } from "@/assets/Columns/CashLedgerColumns";
 import { ItemLedgerColumns } from "@/assets/Columns/ItemLedgerColumns";
@@ -8,7 +12,7 @@ import CustomInput from "@/components/Inputs/CustomInput";
 import CustomPopOver from "@/components/Inputs/CustomPopOver";
 import ProcessLoader from "@/components/Loader/ProcessLoader";
 import SimpleTable from "@/components/Tables/SimpleTable";
-import { WarningToast } from "@/utils/ShowToast";
+import { ErrorToast, SuccessToast, WarningToast } from "@/utils/ShowToast";
 import { fetchCompanies } from "@/utils/Slices/CompanySlice";
 import { fetchCustomers } from "@/utils/Slices/CustomerSlice";
 import { fetchItems } from "@/utils/Slices/ItemSlice";
@@ -30,6 +34,7 @@ export default function CompanyLedger() {
   const [ItemTotal, setItemTotal] = useState("");
   const [Discount, setDiscount] = useState("");
   const [TotalAmount, setTotalAmount] = useState("");
+  const [Payment, setPayment] = useState(0);
   const [CurrentDate, setCurrentDate] = useState(
     moment(new Date()).format("YYYY-MM-DD")
   );
@@ -39,6 +44,7 @@ export default function CompanyLedger() {
   const ItemState = useSelector((state) => state.ItemState);
   const itemCodeInputRef = useRef(null);
   const [NewItems, setNewItems] = useState([]);
+  const [Loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch(fetchCustomers());
@@ -136,6 +142,63 @@ export default function CompanyLedger() {
       setTotalAmount(total - Number(Discount || 0));
     }
   }, [NewItems, Discount]);
+
+  const HandleSubmit = async () => {
+    setLoading(true);
+    try {
+      if (Payment !== "" && Number(Payment) > 0) {
+        const formData = new FormData();
+        formData.append("user_type", 2);
+        formData.append("user_Id", SelectCustomer.name);
+        formData.append(
+          "user_name",
+          CustomerState.data.find((dt) => dt._id === CurrentCustomer)?.name
+        );
+        formData.append(
+          "depositor",
+          CustomerState.data.find((dt) => dt._id === CurrentCustomer)?.name
+        );
+        formData.append("payment_type", 1);
+        formData.append("amount", Number(Payment));
+        formData.append("date", CurrentDate);
+        formData.append("desc", "Payment during transaction");
+        const responseCash = await CreatePaymentApi(formData);
+        if (responseCash.data.success) {
+          SuccessToast(responseCash.data.data.msg);
+        } else {
+          ErrorToast(responseCash.data.error.msg);
+        }
+      }
+      const response = await CreateTransactionApi({
+        customerId: CurrentCustomer,
+        date: CurrentDate,
+        items: NewItems,
+        discount: Number(Discount),
+        invoice_no: BillNo,
+      });
+      // console.log("transaction: ", response);
+      if (!response.data?.success) ErrorToast(response.data?.error?.msg);
+      else {
+        SuccessToast(response.data?.data?.msg);
+        resetStates();
+      }
+    } catch (err) {
+      ErrorToast(err.response?.data?.error?.msg || err.message);
+    }
+  };
+
+  const resetStates = () => {
+    setTimeout(() => {
+      setNewItems([]);
+      setTotalAmount(0);
+      setDiscount(0);
+      setCurrentCustomer("");
+      setPayment("");
+      setBillNo("");
+      setCurrentCustomer("");
+      setLoading(false);
+    }, 4000);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -341,7 +404,10 @@ export default function CompanyLedger() {
       )}
       {!BillNoExists && NewItems.length !== 0 && (
         <div className="flex gap-x-2">
-          <div className="px-2 py-2 border-2 border-black hover:rounded-lg transition-all ease-in-out duration-500 hover:bg-gray-600 bg-black text-white hover:text-white cursor-pointer w-[200px] flex justify-center items-center font-bold">
+          <div
+            className="px-2 py-2 border-2 border-black hover:rounded-lg transition-all ease-in-out duration-500 hover:bg-gray-600 bg-black text-white hover:text-white cursor-pointer w-[200px] flex justify-center items-center font-bold"
+            onClick={HandleSubmit}
+          >
             Add
           </div>
           <div className="px-2 py-2 border-2 border-black hover:rounded-lg transition-all ease-in-out duration-500 hover:bg-gray-600 bg-black text-white hover:text-white cursor-pointer w-[200px] flex justify-center items-center font-bold">

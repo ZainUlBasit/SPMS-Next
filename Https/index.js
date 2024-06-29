@@ -13,7 +13,7 @@ export const api = axios.create({
 });
 
 export const apiForImage = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://spms.vercel.app/api",
   withCredentials: true,
   headers: {
     "Content-Type": "multipart/form-data",
@@ -67,6 +67,17 @@ export const GetPaymentsByIdApi = (payload) =>
 // Transactions Request
 export const CheckInvoiceNoApi = (payload) =>
   api.post("/transaction/check-invoice-no", payload);
+export const CreateTransactionApi = (payload) =>
+  api.post("/transaction", payload);
+export const GetTransactionByIdApi = (payload) =>
+  api.post("/transaction/get-by-id", payload);
+
+// RETURN REQUEST
+export const CreateReturnApi = (payload) => api.post("/return", payload);
+export const GetReturnByIdApi = (payload) =>
+  api.post("/return/get-by-id", payload);
 
 // Statistics
 export const GetCompanyInfoStatsApi = () => api.get("/stats/company_info");
+export const GetTopTenStatsApi = () => api.get("/stats/top-ten");
+export const GetAccountsStatsApi = () => api.get("/stats/accounts-info");

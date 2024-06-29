@@ -4,6 +4,7 @@ import Customer from "@/models/Customer";
 import Item from "@/models/Item";
 import Product from "@/models/Product";
 import Transaction from "@/models/Transaction";
+import Return from "@/models/Return";
 
 connectDB();
 
@@ -49,14 +50,14 @@ export async function POST(req, res, next) {
         const { itemId, qty, amount } = item;
         const response = await Item.findByIdAndUpdate(
           itemId,
-          { $inc: { qty: -qty, out_qty: qty } }, // Decrement qty field by decrementQty
+          { $inc: { qty: qty, out_qty: -qty } }, // Decrement qty field by decrementQty
           { new: true } // Return the updated document
         );
         totalAmount += amount;
       })
     );
 
-    const transaction = await new Transaction({
+    const transaction = await new Return({
       customerId,
       date: Math.floor(new Date(date) / 1000),
       discount,
@@ -65,22 +66,20 @@ export async function POST(req, res, next) {
       invoice_no,
     }).save();
 
-    if (!transaction)
-      return createError(res, 400, "Unable to Add Transaction!");
+    if (!transaction) return createError(res, 400, "Unable to Add Return!");
     const updateCustomerAccount = await Customer.findByIdAndUpdate(
       customerId,
       {
         $inc: {
-          total: totalAmount,
-          remaining: Number(totalAmount) - Number(discount),
-          discount: discount,
+          return_amount: totalAmount,
+          remaining: -Number(totalAmount),
         },
       }, // Decrement qty field by decrementQty
       { new: true }
     );
-    return successMessage(res, transaction, "Transaction Successfully Added!");
+    return successMessage(res, transaction, "Return Successfully Added!");
   } catch (err) {
-    console.log("Error Occur While Transaction: ", err);
+    console.log("Error Occur While Return: ", err);
     return createError(res, 500, err.message || err);
   }
 }

@@ -16,7 +16,7 @@ export const ItemLedgerColumns = [
     web4: "35px",
   },
   {
-    id: "item_name",
+    id: "name",
     title: "Item", // Assuming "article" is part of the "Item" referenced by "itemId"
     web1: "20px",
     web2: "25px",
@@ -58,6 +58,58 @@ export const ItemLedgerColumns = [
   {
     id: "truck_no",
     title: "Truck No",
+    web1: "20px",
+    web2: "25px",
+    web3: "30px",
+    web4: "35px",
+  },
+];
+
+export const CustomerItemLedgerColumns = [
+  {
+    id: "date",
+    title: "Date",
+    web1: "20px",
+    web2: "25px",
+    web3: "30px",
+    web4: "35px",
+  },
+  {
+    id: "invoice_no",
+    title: "Invoice No",
+    web1: "20px",
+    web2: "25px",
+    web3: "30px",
+    web4: "35px",
+  },
+  {
+    id: "name",
+    title: "Item Name",
+    web1: "20px",
+    web2: "25px",
+    web3: "30px",
+    web4: "35px",
+  },
+  {
+    id: "qty",
+    title: "Quantity",
+    web1: "20px",
+    web2: "25px",
+    web3: "30px",
+    web4: "35px",
+  },
+
+  {
+    id: "price",
+    title: "Price",
+    web1: "20px",
+    web2: "25px",
+    web3: "30px",
+    web4: "35px",
+  },
+  {
+    id: "amount",
+    title: "Total Amount",
     web1: "20px",
     web2: "25px",
     web3: "30px",
