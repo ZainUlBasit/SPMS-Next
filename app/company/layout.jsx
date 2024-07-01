@@ -1,6 +1,6 @@
-"use client";
 import Navbar from "@/components/Navbar/Navbar";
 import CompanyNavs from "@/components/Navigations/CompanyNavs";
+import { Inter } from "next/font/google";
 import { Roboto } from "next/font/google";
 
 const roboto = Roboto({

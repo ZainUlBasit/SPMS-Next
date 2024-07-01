@@ -43,23 +43,25 @@ export default function CompanyInfo() {
 
   return (
     <div className="flex justify-center items-center w-full">
-      {CompanyState.loading ? (
+      {CompanyState.loading || !CompanyState.data ? (
         <PageLoader />
       ) : (
-        <TableWrapper>
-          <Search
-            Placeholder="Search Company..."
-            Value={SearchText}
-            setValue={setSearchText}
-          />
-          <CompanyInfoTable
-            setID={setCompanyID}
-            setOpenEditModal={setOpenEditModal}
-            setOpenDeleteModal={setOpenDeleteModal}
-            SearchText={SearchText}
-            Rows={CompanyState.data}
-          />
-        </TableWrapper>
+        CompanyState.data && (
+          <TableWrapper>
+            <Search
+              Placeholder="Search Company..."
+              Value={SearchText}
+              setValue={setSearchText}
+            />
+            <CompanyInfoTable
+              setID={setCompanyID}
+              setOpenEditModal={setOpenEditModal}
+              setOpenDeleteModal={setOpenDeleteModal}
+              SearchText={SearchText}
+              Rows={CompanyState.data}
+            />
+          </TableWrapper>
+        )
       )}
 
       {OpenEditModal && CompanyID && (

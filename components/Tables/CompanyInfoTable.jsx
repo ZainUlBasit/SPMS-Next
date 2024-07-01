@@ -32,6 +32,9 @@ export default function CompanyInfoTable({
   SearchText,
   Rows,
 }) {
+  // ;pg
+  console.log(Rows ? Rows : "Nothing");
+  // return <div>hike</div>;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5); // You can adjust the number of rows per page as needed
 
@@ -70,16 +73,11 @@ export default function CompanyInfoTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {Rows?.filter((row) => {
-              if (SearchText === "") return row;
-              else if (
-                row.name.toLowerCase().includes(SearchText.toLowerCase())
-              ) {
-                return row;
-              }
-            })
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((data, i) => {
+            {Rows &&
+              Rows.slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage
+              ).map((data, i) => {
                 return (
                   <TableRow
                     key={i}
