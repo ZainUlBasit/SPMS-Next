@@ -26,8 +26,23 @@ export default function CompanyInfo() {
     dispatch(fetchCompanies());
   }, []);
 
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      const response = await DeleteCompanyApi({ companyId: CompanyID });
+      if (response.data.success) {
+        SuccessToast(response.data.data.msg);
+        setOpenDeleteModal(false);
+        dispatch(fetchCompanies());
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
+  };
+
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center w-full">
       {CompanyState.loading ? (
         <PageLoader />
       ) : (
@@ -47,31 +62,20 @@ export default function CompanyInfo() {
         </TableWrapper>
       )}
 
-      {OpenEditModal && (
+      {OpenEditModal && CompanyID && (
         <EditCompany
+          key={`edit-${CompanyID}`} // Ensure unique key for each modal instance
           open={OpenEditModal}
           setOpen={setOpenEditModal}
           CurrentCompany={CompanyState.data.find((dt) => dt._id === CompanyID)}
         />
       )}
-      {OpenDeleteModal && (
+      {OpenDeleteModal && CompanyID && (
         <DeleteModal
+          key={`delete-${CompanyID}`} // Ensure unique key for each modal instance
           Open={OpenDeleteModal}
           setOpen={setOpenDeleteModal}
-          onSubmit={async () => {
-            setLoading(true);
-            try {
-              const response = await DeleteCompanyApi({ companyId: CompanyID });
-              if (response.data.success) {
-                SuccessToast(response.data.data.msg);
-                setOpenDeleteModal(false);
-                dispatch(fetchCompanies());
-              }
-            } catch (err) {
-              console.log(err);
-            }
-            setLoading(false);
-          }}
+          onSubmit={handleDelete}
           Loading={Loading}
         />
       )}
