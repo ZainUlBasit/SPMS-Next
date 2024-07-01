@@ -37,7 +37,9 @@ export default function PaymentInfo() {
   };
 
   const userData =
-    userType === "company" ? CompanyState.data : CustomerState.data;
+    userType === "company"
+      ? CompanyState.data
+      : userType === "customer" && CustomerState.data;
 
   const filteredData =
     SearchText === ""
