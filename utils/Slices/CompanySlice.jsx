@@ -7,7 +7,7 @@ export const fetchCompanies = createAsyncThunk(
     try {
       const response = await GetCompanyApi();
       console.log(response.data);
-      return response.data.data.payload;
+      return response.data.data.payload || [];
     } catch (error) {
       console.log(error);
     }

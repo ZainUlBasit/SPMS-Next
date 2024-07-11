@@ -58,7 +58,7 @@ export default function CompanyInfo() {
               setOpenEditModal={setOpenEditModal}
               setOpenDeleteModal={setOpenDeleteModal}
               SearchText={SearchText}
-              Rows={CompanyState.data}
+              Rows={CompanyState.data || []}
             />
           </TableWrapper>
         )
