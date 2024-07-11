@@ -5,6 +5,7 @@ import DeleteModal from "@/components/Modals/DeleteModal";
 import EditCompany from "@/components/Modals/EditCompany";
 import Search from "@/components/Search/Search";
 import CompanyInfoTable from "@/components/Tables/CompanyInfoTable";
+import TableComp from "@/components/Tables/TableComponent";
 import TableWrapper from "@/components/Tables/TableWrapper";
 import { SuccessToast } from "@/utils/ShowToast";
 import { fetchCompanies } from "@/utils/Slices/CompanySlice";
@@ -47,20 +48,27 @@ export default function CompanyInfo() {
         <PageLoader />
       ) : (
         CompanyState.data && (
-          <TableWrapper>
-            <Search
+          <div className="w-[90%]">
+            {/* <Search
               Placeholder="Search Company..."
               Value={SearchText}
               setValue={setSearchText}
+            /> */}
+            <TableComp
+              title="COMPANIES INFO"
+              rows={CompanyState.data}
+              Value={SearchText}
+              setValue={setSearchText}
+              placeholder={"Search Company..."}
             />
-            <CompanyInfoTable
+            {/* <CompanyInfoTable
               setID={setCompanyID}
               setOpenEditModal={setOpenEditModal}
               setOpenDeleteModal={setOpenDeleteModal}
               SearchText={SearchText}
               Rows={CompanyState.data || []}
-            />
-          </TableWrapper>
+            /> */}
+          </div>
         )
       )}
 
