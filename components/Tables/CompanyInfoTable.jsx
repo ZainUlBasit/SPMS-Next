@@ -74,10 +74,7 @@ export default function CompanyInfoTable({
           </TableHead>
           <TableBody>
             {Rows &&
-              Rows.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              ).map((data, i) => {
+              Rows.map((data, i) => {
                 return (
                   <TableRow
                     key={i}
