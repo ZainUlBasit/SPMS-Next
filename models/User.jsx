@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  type: { type: Number, enum: [1, 2], required: true }, // 1: Admin , 2: Customer
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);

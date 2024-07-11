@@ -1,4 +1,5 @@
 import Customer from "@/models/Customer";
+import User from "@/models/User";
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 
@@ -45,6 +46,19 @@ export async function POST(req, res) {
     });
 
     await customer.save();
+
+    const createAccount = new User({
+      name,
+      email,
+      password,
+      type: 2,
+    });
+
+    await createAccount.save();
+
+    if (!createAccount) {
+      return createError(res, 400, "Unable to create Account for Customer!");
+    }
 
     if (!customer) {
       return createError(res, 400, "Unable to Add Customer!");
