@@ -60,7 +60,7 @@ const EditItem = ({ open, setOpen, CurrentItem }) => {
   };
 
   return (
-    <ModalWrapper open={open} setOpen={setOpen} title={"Create Item"}>
+    <ModalWrapper open={open} setOpen={setOpen} title={"Edit Item"}>
       <div className="flex justify-center flex-col py-5">
         <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
           <TextField
