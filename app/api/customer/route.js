@@ -29,8 +29,8 @@ export async function POST(req, res) {
   }
 
   try {
-    const user = await User.findOne({ email });
-    if (!user) return createError(res, 404, "No such account with email!");
+    const user = await User.exists({ email });
+    if (user) return createError(res, 409, "Email already registered");
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
