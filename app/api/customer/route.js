@@ -2,6 +2,7 @@ import Customer from "@/models/Customer";
 import User from "@/models/User";
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
+import bcrypt from "bcrypt";
 
 connectDB();
 
@@ -28,6 +29,11 @@ export async function POST(req, res) {
   }
 
   try {
+    const user = await User.findOne({ email });
+    if (!user) return createError(res, 404, "No such account with email!");
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const customer = new Customer({
       name,
       contact,
@@ -52,6 +58,7 @@ export async function POST(req, res) {
       email,
       password,
       type: 2,
+      customerId: customer._id,
     });
 
     await createAccount.save();

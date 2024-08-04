@@ -25,7 +25,9 @@ export async function POST(req, res) {
     });
   }
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate((user) =>
+      user.type === 2 ? "customerId" : ""
+    );
     if (!user) return createError(res, 404, "No such account with email!");
 
     const isMatch = await bcrypt.compare(password, user.password);

@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   type: { type: Number, enum: [1, 2], required: true }, // 1: Admin , 2: Customer
+  customerId: { type: mongoose.Types.ObjectId, ref: "Customer" },
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);
