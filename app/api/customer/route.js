@@ -56,7 +56,7 @@ export async function POST(req, res) {
     const createAccount = new User({
       name,
       email,
-      password,
+      password: hashedPassword,
       type: 2,
       customerId: customer._id,
     });
