@@ -11,7 +11,7 @@ export async function POST(req, res, next) {
   const reqBody = await req.json();
   const {
     customerId,
-    date = Math.floor(Date.now() / 1000),
+    date = new Date(),
     items,
     discount,
     invoice_no,
@@ -28,6 +28,11 @@ export async function POST(req, res, next) {
 
   if (!Array.isArray(items))
     return createError(res, 422, "Items must be an array of objects!");
+
+  // Adjust the date to 00:00:00 (midnight)
+  const transactionDate = new Date(date);
+  transactionDate.setUTCHours(0, 0, 0, 0);
+  const transactionTimestamp = Math.floor(transactionDate.getTime() / 1000);
 
   try {
     const productIds = await Promise.all(
@@ -47,7 +52,7 @@ export async function POST(req, res, next) {
     await Promise.all(
       items.map(async (item) => {
         const { itemId, qty, amount } = item;
-        const response = await Item.findByIdAndUpdate(
+        await Item.findByIdAndUpdate(
           itemId,
           { $inc: { qty: -qty, out_qty: qty } }, // Decrement qty field by decrementQty
           { new: true } // Return the updated document
@@ -58,7 +63,7 @@ export async function POST(req, res, next) {
 
     const transaction = await new Transaction({
       customerId,
-      date: Math.floor(new Date(date) / 1000),
+      date: transactionTimestamp,
       discount,
       items: productIds,
       total_amount: totalAmount,
@@ -67,7 +72,7 @@ export async function POST(req, res, next) {
 
     if (!transaction)
       return createError(res, 400, "Unable to Add Transaction!");
-    const updateCustomerAccount = await Customer.findByIdAndUpdate(
+    await Customer.findByIdAndUpdate(
       customerId,
       {
         $inc: {
