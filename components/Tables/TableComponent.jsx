@@ -43,13 +43,7 @@ const TableWrapper = styled.div`
     props.isAct ? "0px 20px 0px 140px" : "0px 20px 0px 20px"};
 `;
 
-export default function TableComp({
-  rows,
-  title,
-  Value,
-  setValue,
-  placeholder,
-}) {
+export default function TableComp({ rows, title }) {
   console.log(rows);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
