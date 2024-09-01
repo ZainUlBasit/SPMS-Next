@@ -32,13 +32,16 @@ export default function Page() {
   `;
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex gap-x-2 gap-y-2 justify-center items-center flex-wrap">
       {ItemState.loading ? (
         <PageLoader />
       ) : (
         ItemState.data &&
         ItemState.data.map((dt, index) => (
-          <div key={dt.id} className="label">
+          <div
+            key={dt.id}
+            className="label flex flex-col justify-center items-center"
+          >
             <Barcode
               value={dt.code}
               ref={(el) => (refs.current[index] = el)}
@@ -46,7 +49,11 @@ export default function Page() {
               width={1}
             />
             <ReactToPrint
-              trigger={() => <button>Print</button>}
+              trigger={() => (
+                <button className="bg-black border-2 border-black text-white px-4 w-[70%] py-1 rounded-lg hover:text-black hover:bg-transparent transition-all ease-in-out duration-500">
+                  Print
+                </button>
+              )}
               content={() => refs.current[index]}
               pageStyle={pageStyle}
             />

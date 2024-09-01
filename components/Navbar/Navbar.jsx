@@ -44,10 +44,6 @@ const Navbar = () => {
           <Image src={LogoName} className="w-[150px] h-auto" />
         </div>
         <div className="flex gap-x-4">
-          <FaUserCog
-            className="text-3xl text-[#000] hover:text-gray-600 cursor-pointer"
-            onClick={() => router.push("/settings")} // Example: Navigate to settings page
-          />
           <IoExit
             className="text-3xl text-[#000] hover:text-gray-600 cursor-pointer"
             onClick={handleLogout} // Logout action
