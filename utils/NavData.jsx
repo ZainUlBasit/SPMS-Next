@@ -12,6 +12,5 @@ export const NavData = [
   { title: "Items", Icon: GiCrackedGlass, Link: "/item" },
   { title: "Customer", Icon: FaUserClock, Link: "/customer" },
   { title: "Employeee", Icon: FaUsersBetweenLines, Link: "/employee" },
-  { title: "Statistics", Icon: BiSolidReport, Link: "/statistics" },
   { title: "Payments", Icon: MdOutlinePayments, Link: "/payments" },
 ];
