@@ -1,9 +1,12 @@
 "use client";
+import { DeleteEmployeeApi } from "@/Https";
 import PageLoader from "@/components/Loader/PageLoader";
+import DeleteModal from "@/components/Modals/DeleteModal";
 import EditEmployeeModal from "@/components/Modals/EditEmployeeModal";
 import Search from "@/components/Search/Search";
 import EmployeeInfoTable from "@/components/Tables/EmployeeInfoTable";
 import TableWrapper from "@/components/Tables/TableWrapper";
+import { SuccessToast } from "@/utils/ShowToast";
 import { fetchEmployees } from "@/utils/Slices/EmployeeSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,20 +53,20 @@ export default function EmployeeeInfo() {
             />
           )}
 
-          {/* {OpenDeleteModal && (
+          {OpenDeleteModal && (
             <DeleteModal
               Open={OpenDeleteModal}
               setOpen={setOpenDeleteModal}
               onSubmit={async () => {
                 setLoading(true);
                 try {
-                  const response = await DeleteCustomerApi({
-                    customerId: CustomerID,
+                  const response = await DeleteEmployeeApi({
+                    employeeId: CustomerID,
                   });
                   if (response.data.success) {
                     SuccessToast(response.data.data.msg);
                     setOpenDeleteModal(false);
-                    dispatch(fetchCustomers());
+                    dispatch(fetchEmployees());
                   }
                 } catch (err) {
                   console.log(err);
@@ -72,7 +75,7 @@ export default function EmployeeeInfo() {
               }}
               Loading={Loading}
             />
-          )} */}
+          )}
         </TableWrapper>
       )}
     </div>

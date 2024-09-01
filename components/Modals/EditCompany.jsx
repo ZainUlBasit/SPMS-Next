@@ -8,6 +8,8 @@ import { fetchCompanies } from "@/utils/Slices/CompanySlice";
 import { successMessage } from "@/utils/ResponseMessage";
 import ProcessLoader from "../Loader/ProcessLoader";
 import CustomInput from "../Inputs/CustomInput";
+import { RiUserForbidFill } from "react-icons/ri";
+import { BiSolidImageAdd } from "react-icons/bi";
 
 const EditCompany = ({ open, setOpen, CurrentCompany }) => {
   const [Name, setName] = useState(CurrentCompany.name);
@@ -18,6 +20,12 @@ const EditCompany = ({ open, setOpen, CurrentCompany }) => {
   const [Address, setAddress] = useState(CurrentCompany.address);
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+  };
 
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -30,6 +38,7 @@ const EditCompany = ({ open, setOpen, CurrentCompany }) => {
       Cnic: Joi.string().required(),
       Desc: Joi.string().required(),
       Address: Joi.string().required(),
+      Logo: Joi.file().required(),
     });
 
     // Validate input values
@@ -40,6 +49,7 @@ const EditCompany = ({ open, setOpen, CurrentCompany }) => {
       Cnic: Cnic.toString(),
       Desc,
       Address,
+      Logo: selectedFile,
     });
 
     if (error) {
@@ -55,6 +65,7 @@ const EditCompany = ({ open, setOpen, CurrentCompany }) => {
           desc: Desc,
           address: Address,
           companyId: CurrentCompany._id,
+          logo: selectedFile,
         });
         if (response.data.success) {
           successMessage(response.data.data.msg);
@@ -70,6 +81,30 @@ const EditCompany = ({ open, setOpen, CurrentCompany }) => {
 
   return (
     <ModalWrapper open={open} setOpen={setOpen} title={"Edit Company"}>
+      <div className="relative flex justify-center">
+        {selectedFile ? (
+          <img
+            src={URL.createObjectURL(selectedFile)}
+            alt="Blog Image"
+            className="w-24 h-24 rounded-full border-2 border-custom-bg-hover mb-6 relative"
+          />
+        ) : (
+          <RiUserForbidFill className="w-24 h-24 rounded-full mb-4 text-custom-bg-hover" />
+        )}
+        <label
+          htmlFor="file-input"
+          className="absolute bottom-0 right-0 cursor-pointer flex items-center w-fit p-1 rounded-full border-1 border-black text-white bg-black hover:bg-gray-800 transition-all ease-in-out duration-500"
+        >
+          <BiSolidImageAdd className="text-[1.1rem]" />
+        </label>
+      </div>
+      <input
+        id="file-input"
+        type="file"
+        accept=".jpg, .jpeg, .png"
+        className="hidden"
+        onChange={handleFileChange}
+      />
       <div className="flex justify-center flex-col py-5 gap-y-4">
         <CustomInput
           id="name"

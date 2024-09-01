@@ -2,6 +2,12 @@
 import mongoose from "mongoose";
 
 const companySchema = new mongoose.Schema({
+  logo: {
+    type: String,
+    required: true,
+    default:
+      "https://e7.pngegg.com/pngimages/943/311/png-clipart-business-company-brand-service-business-company-text.png",
+  },
   name: { type: String, required: true },
   contact: { type: String, required: true },
   email: { type: String, required: true },

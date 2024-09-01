@@ -8,10 +8,14 @@ import { TbFileReport, TbLayoutGridAdd } from "react-icons/tb";
 import NavigationWrapper from "./NavigationWrapper";
 import CreateItem from "../Modals/CreateItem";
 import AddStockModal from "../Modals/AddStockModal";
-
+import { useRouter } from "next/navigation";
 const ItemNavs = () => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [OpenStock, setOpenStock] = useState(false);
+  const handleInfoClick = () => {
+    router.push("/item");
+  };
   return (
     <NavigationWrapper>
       <NavigationsBtn
@@ -24,7 +28,9 @@ const ItemNavs = () => {
         Title={"Info"}
         Icon={IoInformationCircle}
         Width={"!max-w-[220px]"}
-        OnClick={() => {}}
+        OnClick={() => {
+          handleInfoClick();  
+        }}
       />
       <NavigationsBtn
         Title={"Add Stock"}

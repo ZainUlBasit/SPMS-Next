@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://spms.vercel.app/api",
+  baseURL: "http://localhost:3000/api",
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
@@ -13,14 +13,11 @@ export const api = axios.create({
 });
 
 export const apiForImage = axios.create({
-  baseURL: "https://spms.vercel.app/api",
+  baseURL: "http://localhost:3000/api",
   withCredentials: true,
   headers: {
     "Content-Type": "multipart/form-data",
     Accept: "application/json",
-    // app_secret:
-    //   "10ef42363582fd212242bf8da6598e6d15111a9a509c36242411d444e8c03728",
-    // userToken,
   },
 });
 
@@ -28,8 +25,10 @@ export const apiForImage = axios.create({
 export const LoginApi = (payload) => api.post("/login", payload);
 
 //  Company Requests
-export const CreateCompanyApi = (payload) => api.post("/company", payload);
-export const UpdateCompanyApi = (payload) => api.patch("/company", payload);
+export const CreateCompanyApi = (payload) =>
+  apiForImage.post("/company", payload);
+export const UpdateCompanyApi = (payload) =>
+  apiForImage.patch("/company", payload);
 export const DeleteCompanyApi = (payload) =>
   api.post("/company/delete", payload);
 export const GetCompanyApi = () => api.get("/company");

@@ -8,20 +8,22 @@ import {
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import Company from "@/models/Company";
 import { NextResponse } from "next/server";
+import { updateCompanyLogo, uploadCompanyLogoFile } from "@/utils/firebase";
 
 connectDB();
 
 export async function POST(req, res) {
   const reqBody = await req.json();
   console.log(reqBody);
-  const { name, contact, email, cnic, desc, address } = reqBody;
-  if (!name || !contact || !desc || !address || !email || !cnic) {
+  const { name, contact, email, cnic, desc, address, logo } = reqBody;
+  if (!name || !contact || !desc || !address || !email || !cnic || !logo) {
     return Response.json({
       success: false,
       error: "Required fields are undefined!",
     });
   }
   try {
+    const logoUrl = await uploadCompanyLogoFile(name, logo);
     const company = new Company({
       name,
       contact,
@@ -29,6 +31,7 @@ export async function POST(req, res) {
       address,
       email,
       cnic,
+      logo: logoUrl,
     });
     await company.save();
     if (!company) return createError(res, 400, "Unable to Add Company!");
@@ -49,7 +52,18 @@ export async function GET(req, res) {
 export async function PATCH(req, res) {
   const reqBody = await req.json();
   console.log(reqBody);
-  const { name, contact, email, cnic, desc, address, companyId } = reqBody;
+  const { name, contact, email, cnic, desc, address, companyId, logo } =
+    reqBody;
+
+  let logoUrl;
+
+  if (typeof logo === "string") {
+    // If the logo is already a string (i.e., a URL), use it directly
+    logoUrl = logo;
+  } else {
+    // Otherwise, assume it's a file and upload it to get the URL
+    logoUrl = await updateCompanyLogo(name, logo);
+  }
 
   const Payload = {
     name,
@@ -58,6 +72,7 @@ export async function PATCH(req, res) {
     cnic,
     desc,
     address,
+    logo: logoUrl,
   };
 
   if (
@@ -67,6 +82,7 @@ export async function PATCH(req, res) {
     email === "" ||
     cnic === "" ||
     desc === "" ||
+    logo === "" ||
     address === ""
   ) {
     return createError(res, 422, "Required field are undefined!");
