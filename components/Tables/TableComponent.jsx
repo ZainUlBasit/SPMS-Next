@@ -15,10 +15,13 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
 import EditCompany from "../Modals/EditCompany";
 import DeleteModal from "../Modals/DeleteModal";
-import { DeleteCompanyApi } from "@/Https";
+import { DeleteCompanyApi, DeleteItemApi } from "@/Https";
 import { SuccessToast } from "@/utils/ShowToast";
 import { fetchCompanies } from "@/utils/Slices/CompanySlice";
 import { useDispatch } from "react-redux";
+import EditItem from "../Modals/EditItem";
+import EditItemModal from "../Modals/EditItem";
+import { fetchItems } from "@/utils/Slices/ItemSlice";
 
 const BannerHeader = styled.h1.attrs({
   className:
@@ -43,6 +46,120 @@ const TableWrapper = styled.div`
     props.isAct ? "0px 20px 0px 140px" : "0px 20px 0px 20px"};
 `;
 
+const CompanyColumns = [
+  {
+    id: "actions",
+    label: "Actions",
+    minWidth: 150,
+  },
+  {
+    id: "name",
+    label: "Name",
+    minWidth: 150,
+  },
+  {
+    id: "desc",
+    label: "Description",
+    minWidth: 100,
+  },
+  {
+    id: "email",
+    label: "Email",
+    minWidth: 230,
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    align: "left",
+    minWidth: 120,
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "cnic",
+    label: "Cnic",
+    minWidth: 155,
+  },
+  {
+    id: "address",
+    label: "Address",
+    // align: "left",
+    minWidth: 140,
+    // format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "total",
+    label: "Total",
+    align: "center",
+    minWidth: 140,
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "paid",
+    label: "Paid",
+    align: "center",
+    minWidth: 140,
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "remaining",
+    label: "Remaining",
+    align: "center",
+    minWidth: 140,
+    format: (value) => value.toLocaleString("en-US"),
+  },
+];
+
+const ItemColumns = [
+  {
+    id: "actions",
+    label: "Action",
+    minWidth: 100,
+  },
+  {
+    id: "name",
+    label: "Name",
+    minWidth: 150,
+  },
+  {
+    id: "code",
+    label: "Code",
+    minWidth: 120,
+  },
+  {
+    id: "company",
+    label: "Company",
+    minWidth: 150,
+  },
+  {
+    id: "purchase",
+    label: "Purchase",
+    align: "right",
+    minWidth: 100,
+    format: (value) =>
+      value.toLocaleString("en-US", { style: "currency", currency: "USD" }),
+  },
+  {
+    id: "sale",
+    label: "Sale",
+    align: "right",
+    minWidth: 100,
+    format: (value) =>
+      value.toLocaleString("en-US", { style: "currency", currency: "USD" }),
+  },
+  {
+    id: "desc",
+    label: "Description",
+    minWidth: 200,
+  },
+  {
+    id: "qty",
+    label: "Qty",
+    align: "center",
+    minWidth: 100,
+    format: (value) => value.toLocaleString("en-US"),
+  },
+];
+
 export default function TableComp({ rows, title }) {
   console.log(rows);
   const [page, setPage] = useState(0);
@@ -53,6 +170,10 @@ export default function TableComp({ rows, title }) {
   const [Id, setId] = useState("");
   const dispatch = useDispatch();
   const [Loading, setLoading] = useState(false);
+  const columns =
+    title === "ITEMS INFO"
+      ? ItemColumns
+      : title === "COMPANIES INFO" && CompanyColumns;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -66,11 +187,17 @@ export default function TableComp({ rows, title }) {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const response = await DeleteCompanyApi({ companyId: Id });
+      let response;
+      if (title === "ITEMS INFO") {
+        response = await DeleteItemApi({ itemId: Id });
+      } else if (title === "COMPANIES INFO") {
+        response = await DeleteCompanyApi({ companyId: Id });
+      }
       if (response.data.success) {
         SuccessToast(response.data.data.msg);
         setOpenDeleteModal(false);
         dispatch(fetchCompanies());
+        dispatch(fetchItems());
       }
     } catch (err) {
       console.log(err);
@@ -105,68 +232,7 @@ export default function TableComp({ rows, title }) {
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
-                {[
-                  {
-                    id: "actions",
-                    label: "Actions",
-                    minWidth: 150,
-                  },
-                  {
-                    id: "name",
-                    label: "Name",
-                    minWidth: 150,
-                  },
-                  {
-                    id: "desc",
-                    label: "Description",
-                    minWidth: 100,
-                  },
-                  {
-                    id: "email",
-                    label: "Email",
-                    minWidth: 230,
-                  },
-                  {
-                    id: "contact",
-                    label: "Contact",
-                    align: "left",
-                    minWidth: 120,
-                    format: (value) => value.toLocaleString("en-US"),
-                  },
-                  {
-                    id: "cnic",
-                    label: "Cnic",
-                    minWidth: 155,
-                  },
-                  {
-                    id: "address",
-                    label: "Address",
-                    // align: "left",
-                    minWidth: 140,
-                    // format: (value) => value.toLocaleString("en-US"),
-                  },
-                  {
-                    id: "total",
-                    label: "Total",
-                    align: "center",
-                    minWidth: 140,
-                    format: (value) => value.toLocaleString("en-US"),
-                  },
-                  {
-                    id: "paid",
-                    label: "Paid",
-                    align: "center",
-                    minWidth: 140,
-                    format: (value) => value.toLocaleString("en-US"),
-                  },
-                  {
-                    id: "remaining",
-                    label: "Remaining",
-                    align: "center",
-                    minWidth: 140,
-                    format: (value) => value.toLocaleString("en-US"),
-                  },
-                ].map((column, index) => (
+                {columns.map((column, index) => (
                   <TableCell
                     key={index}
                     align={column.align}
@@ -207,68 +273,7 @@ export default function TableComp({ rows, title }) {
                         key={index}
                         style={{ cursor: "pointer", whiteSpace: "nowrap" }}
                       >
-                        {[
-                          {
-                            id: "actions",
-                            label: "Actions",
-                            minWidth: 150,
-                          },
-                          {
-                            id: "name",
-                            label: "Name",
-                            minWidth: 150,
-                          },
-                          {
-                            id: "desc",
-                            label: "Description",
-                            minWidth: 100,
-                          },
-                          {
-                            id: "email",
-                            label: "Email",
-                            minWidth: 230,
-                          },
-                          {
-                            id: "contact",
-                            label: "Contact",
-                            align: "left",
-                            minWidth: 120,
-                            format: (value) => value.toLocaleString("en-US"),
-                          },
-                          {
-                            id: "cnic",
-                            label: "Cnic",
-                            minWidth: 155,
-                          },
-                          {
-                            id: "address",
-                            label: "Address",
-                            // align: "left",
-                            minWidth: 140,
-                            // format: (value) => value.toLocaleString("en-US"),
-                          },
-                          {
-                            id: "total",
-                            label: "Total",
-                            align: "center",
-                            minWidth: 140,
-                            format: (value) => value.toLocaleString("en-US"),
-                          },
-                          {
-                            id: "paid",
-                            label: "Paid",
-                            align: "center",
-                            minWidth: 140,
-                            format: (value) => value.toLocaleString("en-US"),
-                          },
-                          {
-                            id: "remaining",
-                            label: "Remaining",
-                            align: "center",
-                            minWidth: 140,
-                            format: (value) => value.toLocaleString("en-US"),
-                          },
-                        ].map((column) => {
+                        {columns.map((column) => {
                           let value;
                           // if (title === "Item Ledger Detail") {
                           //   if (column.id === "date")
@@ -349,11 +354,18 @@ export default function TableComp({ rows, title }) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      {Open && (
+      {Open && title === "COMPANIES INFO" && (
         <EditCompany
           open={Open}
           setOpen={setOpen}
           CurrentCompany={rows.find((dt) => dt._id === Id)}
+        />
+      )}
+      {Open && title === "ITEMS INFO" && (
+        <EditItemModal
+          open={Open}
+          setOpen={setOpen}
+          CurrentItem={rows.find((dt) => dt._id === Id)}
         />
       )}
       {OpenDeleteModal && (

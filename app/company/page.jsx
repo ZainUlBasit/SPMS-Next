@@ -49,11 +49,6 @@ export default function CompanyInfo() {
       ) : (
         CompanyState.data && (
           <div className="w-[90%]">
-            {/* <Search
-              Placeholder="Search Company..."
-              Value={SearchText}
-              setValue={setSearchText}
-            /> */}
             <TableComp
               title="COMPANIES INFO"
               rows={CompanyState.data}
@@ -61,13 +56,6 @@ export default function CompanyInfo() {
               setValue={setSearchText}
               placeholder={"Search Company..."}
             />
-            {/* <CompanyInfoTable
-              setID={setCompanyID}
-              setOpenEditModal={setOpenEditModal}
-              setOpenDeleteModal={setOpenDeleteModal}
-              SearchText={SearchText}
-              Rows={CompanyState.data || []}
-            /> */}
           </div>
         )
       )}

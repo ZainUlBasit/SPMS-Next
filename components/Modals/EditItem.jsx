@@ -4,27 +4,26 @@ import { FormControl, MenuItem, Select, TextField } from "@mui/material";
 import { fetchCompanies } from "@/utils/Slices/CompanySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorToast } from "@/utils/ShowToast";
-import { CreateItemApi, UpdateItemApi } from "@/Https";
+import { UpdateItemApi } from "@/Https";
 import { successMessage } from "@/utils/ResponseMessage";
 import ProcessLoader from "../Loader/ProcessLoader";
-import { fetchItems } from "@/utils/Slices/ItemSlice";
 
-const EditItem = ({ open, setOpen, CurrentItem }) => {
-  const [code, setCode] = useState(CurrentItem?.code);
-  const [name, setName] = useState(CurrentItem?.name);
-  const [company, setCompany] = useState(CurrentItem?.companyId?._id);
-  const [desc, setDesc] = useState(CurrentItem?.desc);
-  const [purchase, setPurchase] = useState(CurrentItem?.purchase);
-  const [sale, setSale] = useState(CurrentItem?.sale);
+const EditItemModal = ({ open, setOpen, CurrentItem }) => {
+  console.log(CurrentItem);
+  const [code, setCode] = useState(CurrentItem?.code || "");
+  const [name, setName] = useState(CurrentItem?.name || "");
+  const [company, setCompany] = useState(CurrentItem?.companyId?._id || "");
+  const [desc, setDesc] = useState(CurrentItem?.desc || "");
+  const [purchase, setPurchase] = useState(CurrentItem?.purchase || "");
+  const [sale, setSale] = useState(CurrentItem?.sale || "");
   const [Loading, setLoading] = useState(false);
 
   const CompanyState = useSelector((state) => state.CompanyState);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCompanies());
-  }, []);
+  }, [dispatch]);
 
   const handleCompanyChange = (event) => {
     setCompany(event.target.value);
@@ -32,26 +31,23 @@ const EditItem = ({ open, setOpen, CurrentItem }) => {
 
   const handleSubmit = async (e) => {
     setLoading(true);
-    // Handle form submission logic here
+    // Ensure all required fields are filled
     if (!code || !name || !company || !purchase || !sale)
-      return ErrorToast("Required fields are undefined!");
+      return ErrorToast("Required fields are missing!");
+
     try {
       const response = await UpdateItemApi({
-        itemId: CurrentItem._id,
-        payload: {
-          code,
-          name,
-          companyId: company,
-          desc,
-          purchase: Number(purchase),
-          sale: Number(sale),
-        },
+        id: CurrentItem._id, // Pass the current item ID for update
+        code,
+        name,
+        companyId: company,
+        desc,
+        purchase: Number(purchase),
+        sale: Number(sale),
       });
-      console.log(response);
       if (response.data.success) {
         successMessage(response.data.data.msg);
-        dispatch(fetchItems());
-        setOpen(false);
+        setOpen(false); // Close modal after success
       }
     } catch (err) {
       console.log(err);
@@ -92,7 +88,9 @@ const EditItem = ({ open, setOpen, CurrentItem }) => {
             </MenuItem>
             {!CompanyState.loading &&
               CompanyState.data.map((dt) => (
-                <MenuItem value={dt._id}>{dt.name}</MenuItem>
+                <MenuItem key={dt._id} value={dt._id}>
+                  {dt.name}
+                </MenuItem>
               ))}
           </Select>
         </FormControl>
@@ -143,4 +141,4 @@ const EditItem = ({ open, setOpen, CurrentItem }) => {
   );
 };
 
-export default EditItem;
+export default EditItemModal;
