@@ -47,20 +47,22 @@ export default function ItemInfo() {
       {ItemState.loading ? (
         <PageLoader />
       ) : (
-        <TableWrapper>
-          <Search
-            Placeholder="Search Item..."
-            Value={SearchText}
-            setValue={setSearchText}
-          />
-          <ItemInfoTable
-            setID={setItemId}
-            setOpenEditModal={setOpenEditModal}
-            setOpenDeleteModal={setOpenDeleteModal}
-            SearchText={SearchText}
-            Rows={ItemState.data}
-          />
-        </TableWrapper>
+        ItemState.data && (
+          <TableWrapper>
+            <Search
+              Placeholder="Search Item..."
+              Value={SearchText}
+              setValue={setSearchText}
+            />
+            <ItemInfoTable
+              setID={setItemId}
+              setOpenEditModal={setOpenEditModal}
+              setOpenDeleteModal={setOpenDeleteModal}
+              SearchText={SearchText}
+              Rows={ItemState.data}
+            />
+          </TableWrapper>
+        )
       )}
 
       {/* Modal rendering, with key to ensure proper re-rendering */}
