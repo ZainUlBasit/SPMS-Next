@@ -15,15 +15,15 @@ connectDB();
 export async function POST(req, res) {
   const reqBody = await req.json();
   console.log(reqBody);
-  const { name, contact, email, cnic, desc, address, logo } = reqBody;
-  if (!name || !contact || !desc || !address || !email || !cnic || !logo) {
+  const { name, contact, email, cnic, desc, address } = reqBody;
+  if (!name || !contact || !desc || !address || !email || !cnic) {
     return Response.json({
       success: false,
       error: "Required fields are undefined!",
     });
   }
   try {
-    const logoUrl = await uploadCompanyLogoFile(name, logo);
+    // const logoUrl = await uploadCompanyLogoFile(name, logo);
     const company = new Company({
       name,
       contact,
@@ -31,7 +31,10 @@ export async function POST(req, res) {
       address,
       email,
       cnic,
-      logo: logoUrl,
+      total: 0,
+      paid: 0,
+      remaining: 0,
+      // logo: logoUrl,
     });
     await company.save();
     if (!company) return createError(res, 400, "Unable to Add Company!");

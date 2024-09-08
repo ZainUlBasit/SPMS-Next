@@ -25,8 +25,7 @@ export const apiForImage = axios.create({
 export const LoginApi = (payload) => api.post("/login", payload);
 
 //  Company Requests
-export const CreateCompanyApi = (payload) =>
-  apiForImage.post("/company", payload);
+export const CreateCompanyApi = (payload) => api.post("/company", payload);
 export const UpdateCompanyApi = (payload) =>
   apiForImage.patch("/company", payload);
 export const DeleteCompanyApi = (payload) =>
