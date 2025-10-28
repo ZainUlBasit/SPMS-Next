@@ -64,6 +64,7 @@ const Navbar = () => {
                   Icon={dt.Icon}
                   onClick={() => {
                     router.push(dt.Link);
+                    setOpen(false); // Close drawer when navigating
                   }}
                 />
               );

@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { Roboto } from "next/font/google";
-import Navbar from "@/components/Navbar/Navbar";
+import ConditionalNavbar from "@/components/Navbar/ConditionalNavbar";
 import { Toaster } from "react-hot-toast";
 import StoreProvider from "./StoreProvider";
 import ProtectedRoutes from "@/components/Wrapper/ProtectedRoutes";
@@ -23,7 +23,10 @@ export default function RootLayout({ children }) {
       <body className={roboto.className}>
         <Toaster position="top-right" reverseOrder={false} />
         <StoreProvider>
-          <ProtectedRoutes>{children}</ProtectedRoutes>
+          <ProtectedRoutes>
+            <ConditionalNavbar />
+            {children}
+          </ProtectedRoutes>
         </StoreProvider>
       </body>
     </html>

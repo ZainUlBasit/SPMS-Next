@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// const BASE_URL = "https://spms.vercel.app/api"
+const BASE_URL = "http://localhost:3000/api";
+
 export const api = axios.create({
-  baseURL: "https://spms.vercel.app/api",
+  baseURL: BASE_URL,
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
@@ -13,7 +16,7 @@ export const api = axios.create({
 });
 
 export const apiForImage = axios.create({
-  baseURL: "https://spms.vercel.app/api",
+  baseURL: BASE_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "multipart/form-data",
