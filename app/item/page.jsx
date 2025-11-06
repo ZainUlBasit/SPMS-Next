@@ -54,7 +54,7 @@ export default function ItemInfo() {
         <PageLoader />
       ) : (
         ItemState.data && (
-          <div className="w-[90%]">
+          <div className="w-[99%]">
             <TableComp title="ITEMS INFO" rows={ItemState.data} />
           </div>
         )
