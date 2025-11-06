@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Logo from "./logo.png";
+import Logo from "@/public/logo.png";
 import {
   FormControl,
   IconButton,
@@ -81,7 +81,13 @@ export default function Home() {
         <PageLoader />
       ) : (
         <div className="h-fit shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_2px_6px_2px] flex justify-center items-center flex-col p-5 px-5 rounded-xl">
-          <Image src={Logo} className="w-[300px] h-[300px]" />
+          <Image
+            src="https://res.cloudinary.com/dwctex1wh/image/upload/v1762411121/profile_pics/ykapppcadbwsjonqqgto.png"
+            width={300}
+            height={300}
+            className="w-[300px] h-[300px]"
+            alt="Admin Profile"
+          />
           <div className="font-bold text-3xl my-2">Admin Sign In</div>
 
           <div className="flex flex-col items-center justify-center">
