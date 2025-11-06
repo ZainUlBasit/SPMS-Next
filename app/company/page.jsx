@@ -48,7 +48,7 @@ export default function CompanyInfo() {
         <PageLoader />
       ) : (
         CompanyState.data && (
-          <div className="w-[90%]">
+          <div className="w-[99%]">
             <TableComp
               title="COMPANIES INFO"
               rows={CompanyState.data}
