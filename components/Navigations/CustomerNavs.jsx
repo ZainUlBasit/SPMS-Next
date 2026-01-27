@@ -9,6 +9,7 @@ import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { FaUserPlus } from "react-icons/fa";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
 import { BiSolidReport } from "react-icons/bi";
+import { HiShoppingBag } from "react-icons/hi";
 import NavigationWrapper from "./NavigationWrapper";
 import CreateCustomerModal from "../Modals/CreateCustomer";
 import { useRouter } from "next/navigation";
@@ -58,6 +59,14 @@ const CustomerNavs = () => {
         Width={"!max-w-[200px]"}
         OnClick={() => {
           handleLedgerClick();
+        }}
+      />
+      <NavigationsBtn
+        Title={"Orders"}
+        Icon={HiShoppingBag}
+        Width={"!max-w-[200px]"}
+        OnClick={() => {
+          router.push("/customer/orders");
         }}
       />
       {OpenCreateModal && (

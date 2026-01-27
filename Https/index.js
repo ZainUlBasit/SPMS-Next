@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "https://spms.vercel.app/api";
-// const BASE_URL = "http://localhost:3000/api";
+// const BASE_URL = "https://spms.vercel.app/api";
+const BASE_URL = "http://localhost:3000/api";
 
 export const api = axios.create({
   baseURL: BASE_URL,
@@ -82,3 +82,9 @@ export const GetReturnByIdApi = (payload) =>
 export const GetCompanyInfoStatsApi = () => api.get("/stats/company_info");
 export const GetTopTenStatsApi = () => api.get("/stats/top-ten");
 export const GetAccountsStatsApi = () => api.get("/stats/accounts-info");
+
+// Order Requests
+export const CreateOrderApi = (payload) => api.post("/order", payload);
+export const GetOrdersApi = (params) => api.get("/order", { params });
+export const ApproveOrderApi = (payload) => api.post("/order/approve", payload);
+export const RejectOrderApi = (payload) => api.post("/order/reject", payload);
