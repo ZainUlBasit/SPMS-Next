@@ -9,24 +9,24 @@ import Order from "@/models/Order";
 connectDB();
 
 // POST - Approve order (converts order to transaction, updates stock & customer accounts)
-export async function POST(req) {
+export async function POST(req, res) {
   const reqBody = await req.json();
   const { orderId, approvedBy } = reqBody;
 
   if (!orderId) {
-    return createError(req, 422, "Order ID is required!");
+    return createError(res, 422, "Order ID is required!");
   }
 
   try {
     // Find the order
     const order = await Order.findById(orderId).populate("items.itemId");
     if (!order) {
-      return createError(req, 404, "Order not found!");
+      return createError(res, 404, "Order not found!");
     }
 
     if (order.status !== "PENDING") {
       return createError(
-        req,
+        res,
         400,
         `Order is already ${order.status}. Cannot approve.`
       );
@@ -38,7 +38,7 @@ export async function POST(req) {
     });
     if (existingTransaction) {
       return createError(
-        req,
+        res,
         409,
         "Invoice number already exists in transactions!"
       );
@@ -48,11 +48,11 @@ export async function POST(req) {
     for (const orderItem of order.items) {
       const item = await Item.findById(orderItem.itemId);
       if (!item) {
-        return createError(req, 404, `Item ${orderItem.itemId} not found!`);
+        return createError(res, 404, `Item ${orderItem.itemId} not found!`);
       }
       if (item.qty < orderItem.qty) {
         return createError(
-          req,
+          res,
           400,
           `Insufficient stock for item ${item.name || item.code}. Available: ${item.qty}, Required: ${orderItem.qty}`
         );
@@ -97,7 +97,7 @@ export async function POST(req) {
     }).save();
 
     if (!transaction) {
-      return createError(req, 400, "Unable to create transaction!");
+      return createError(res, 400, "Unable to create transaction!");
     }
 
     // Update Customer totals (same as customer/create-bill flow)
@@ -125,7 +125,7 @@ export async function POST(req) {
     );
 
     return successMessage(
-      req,
+      res,
       {
         order: approvedOrder,
         transaction,
@@ -134,6 +134,6 @@ export async function POST(req) {
     );
   } catch (err) {
     console.log("Error Occur While Approving Order: ", err);
-    return createError(req, 500, err.message || err);
+    return createError(res, 500, err.message || err);
   }
 }

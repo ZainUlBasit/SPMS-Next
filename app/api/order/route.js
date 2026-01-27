@@ -7,7 +7,7 @@ import Order from "@/models/Order";
 connectDB();
 
 // GET - List orders (for web admin)
-export async function GET(req) {
+export async function GET(req, res) {
   try {
     const { searchParams } = new URL(req.url);
     const status = searchParams.get("status") || "PENDING";
@@ -24,15 +24,15 @@ export async function GET(req) {
       .sort({ date: -1 })
       .lean();
 
-    return successMessage(req, orders, "Orders retrieved successfully!");
+    return successMessage(res, orders, "Orders retrieved successfully!");
   } catch (err) {
     console.log("Error Occur While Fetching Orders: ", err);
-    return createError(req, 500, err.message || err);
+    return createError(res, 500, err.message || err);
   }
 }
 
 // POST - Create order (from mobile app)
-export async function POST(req) {
+export async function POST(req, res) {
   const reqBody = await req.json();
   const {
     customerId,
@@ -50,15 +50,15 @@ export async function POST(req) {
     invoice_no === "" ||
     Number(invoice_no) < 0
   )
-    return createError(req, 422, "Required fields are undefined!");
+    return createError(res, 422, "Required fields are undefined!");
 
   if (!Array.isArray(items) || items.length === 0)
-    return createError(req, 422, "Items must be a non-empty array!");
+    return createError(res, 422, "Items must be a non-empty array!");
 
   // Validate each item
   for (const item of items) {
     if (!item.itemId || !item.qty || !item.price || !item.purchase || !item.amount) {
-      return createError(req, 422, "Each item must have itemId, qty, price, purchase, and amount!");
+      return createError(res, 422, "Each item must have itemId, qty, price, purchase, and amount!");
     }
   }
 
@@ -71,20 +71,20 @@ export async function POST(req) {
     // Check if customer exists
     const customer = await Customer.findById(customerId);
     if (!customer) {
-      return createError(req, 404, "Customer not found!");
+      return createError(res, 404, "Customer not found!");
     }
 
     // Check if invoice_no already exists in Orders or Transactions
     const existingOrder = await Order.findOne({ invoice_no });
     if (existingOrder) {
-      return createError(req, 409, "Invoice number already exists in orders!");
+      return createError(res, 409, "Invoice number already exists in orders!");
     }
 
     // Check invoice_no in Transaction model (import if needed)
     const Transaction = (await import("@/models/Transaction")).default;
     const existingTransaction = await Transaction.findOne({ invoice_no });
     if (existingTransaction) {
-      return createError(req, 409, "Invoice number already exists in transactions!");
+      return createError(res, 409, "Invoice number already exists in transactions!");
     }
 
     // Calculate total amount
@@ -101,11 +101,11 @@ export async function POST(req) {
       status: "PENDING",
     }).save();
 
-    if (!order) return createError(req, 400, "Unable to create order!");
+    if (!order) return createError(res, 400, "Unable to create order!");
 
-    return successMessage(req, order, "Order created successfully and pending approval!");
+    return successMessage(res, order, "Order created successfully and pending approval!");
   } catch (err) {
     console.log("Error Occur While Creating Order: ", err);
-    return createError(req, 500, err.message || err);
+    return createError(res, 500, err.message || err);
   }
 }

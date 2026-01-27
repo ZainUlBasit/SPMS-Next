@@ -5,23 +5,23 @@ import Order from "@/models/Order";
 connectDB();
 
 // POST - Reject order
-export async function POST(req) {
+export async function POST(req, res) {
   const reqBody = await req.json();
   const { orderId, rejectionReason } = reqBody;
 
   if (!orderId) {
-    return createError(req, 422, "Order ID is required!");
+    return createError(res, 422, "Order ID is required!");
   }
 
   try {
     const order = await Order.findById(orderId);
     if (!order) {
-      return createError(req, 404, "Order not found!");
+      return createError(res, 404, "Order not found!");
     }
 
     if (order.status !== "PENDING") {
       return createError(
-        req,
+        res,
         400,
         `Order is already ${order.status}. Cannot reject.`
       );
@@ -36,9 +36,9 @@ export async function POST(req) {
       { new: true }
     );
 
-    return successMessage(req, rejectedOrder, "Order rejected successfully!");
+    return successMessage(res, rejectedOrder, "Order rejected successfully!");
   } catch (err) {
     console.log("Error Occur While Rejecting Order: ", err);
-    return createError(req, 500, err.message || err);
+    return createError(res, 500, err.message || err);
   }
 }

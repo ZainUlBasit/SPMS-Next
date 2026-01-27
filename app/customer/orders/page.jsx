@@ -21,12 +21,20 @@ export default function OrdersPage() {
     try {
       const params = { status: statusFilter };
       const response = await GetOrdersApi(params);
+      console.log("Orders API Response:", response.data);
       if (response.data.success) {
-        setOrders(response.data.data.payload);
+        const ordersData = response.data.data.payload || [];
+        setOrders(Array.isArray(ordersData) ? ordersData : []);
+      } else {
+        console.error("API returned success=false:", response.data);
+        ErrorToast(response.data.error?.message || "Failed to fetch orders");
+        setOrders([]);
       }
     } catch (err) {
       console.error("Error fetching orders:", err);
-      ErrorToast("Failed to fetch orders");
+      console.error("Error details:", err.response?.data);
+      ErrorToast(err.response?.data?.error?.message || "Failed to fetch orders");
+      setOrders([]);
     } finally {
       setLoading(false);
     }
