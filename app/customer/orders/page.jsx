@@ -90,7 +90,8 @@ export default function OrdersPage() {
     return (
       order.customerId?.name?.toLowerCase().includes(searchLower) ||
       order.invoice_no?.toString().includes(searchText) ||
-      order.customerId?.phone?.includes(searchText)
+      order.customerId?.phone?.includes(searchText) ||
+      order.customerId?.contact?.includes(searchText)
     );
   });
 
@@ -170,7 +171,7 @@ export default function OrdersPage() {
                           {order.customerId?.name || "N/A"}
                         </div>
                         <div className="text-sm text-gray-500">
-                          {order.customerId?.phone || ""}
+                          {order.customerId?.phone || order.customerId?.contact || ""}
                         </div>
                       </div>
                     </td>

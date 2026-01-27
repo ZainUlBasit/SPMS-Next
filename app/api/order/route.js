@@ -19,7 +19,7 @@ export async function GET(req, res) {
     }
 
     const orders = await Order.find(query)
-      .populate("customerId", "name phone address")
+      .populate("customerId", "name contact phone address")
       .populate("items.itemId", "name code")
       .sort({ date: -1 })
       .lean();
