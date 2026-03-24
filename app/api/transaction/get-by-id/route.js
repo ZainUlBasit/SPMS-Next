@@ -10,13 +10,13 @@ export async function POST(req, res, next) {
   const reqBody = await req.json();
   const { customerId, from_date, to_date } = reqBody;
 
-  const reqStr = Joi.string().required();
-
-  const paymentSchema = Joi.object({
-    customerId: reqStr,
+  const ledgerSchema = Joi.object({
+    customerId: Joi.string().required(),
+    from_date: Joi.string().required(),
+    to_date: Joi.string().required(),
   });
 
-  const { error } = paymentSchema.validate(reqBody.values);
+  const { error } = ledgerSchema.validate(reqBody);
   if (error) {
     return createError(res, 422, error.message);
   }
