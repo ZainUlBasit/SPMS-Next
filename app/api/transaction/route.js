@@ -4,10 +4,8 @@ import Customer from "@/models/Customer";
 import Item from "@/models/Item";
 import Product from "@/models/Product";
 import Transaction from "@/models/Transaction";
-
-connectDB();
-
 export async function POST(req, res, next) {
+  await connectDB();
   const reqBody = await req.json();
   const {
     customerId,

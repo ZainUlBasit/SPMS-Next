@@ -7,10 +7,8 @@ import Payment from "@/models/Payment";
 import Joi from "joi";
 import Item from "@/models/Item";
 import Transaction from "@/models/Transaction";
-
-connectDB();
-
 export async function GET(req, res) {
+  await connectDB();
   // Get current date
   const currentDate = new Date();
 

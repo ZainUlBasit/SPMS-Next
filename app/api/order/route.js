@@ -3,11 +3,9 @@ import { createError, successMessage } from "@/utils/ResponseMessage";
 import Customer from "@/models/Customer";
 import Item from "@/models/Item";
 import Order from "@/models/Order";
-
-connectDB();
-
 // GET - List orders (for web admin)
 export async function GET(req, res) {
+  await connectDB();
   try {
     const { searchParams } = new URL(req.url);
     const status = searchParams.get("status") || "PENDING";
@@ -33,6 +31,7 @@ export async function GET(req, res) {
 
 // POST - Create order (from mobile app)
 export async function POST(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const {
     customerId,

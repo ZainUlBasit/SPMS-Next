@@ -1,10 +1,8 @@
 import Transaction from "@/models/Transaction";
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
-
-connectDB();
-
 export async function POST(req, res) {
+  await connectDB();
   try {
     const { customerId, from_date, to_date } = await req.json();
 

@@ -1,11 +1,9 @@
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import Order from "@/models/Order";
-
-connectDB();
-
 // POST - Reject order
 export async function POST(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const { orderId, rejectionReason } = reqBody;
 

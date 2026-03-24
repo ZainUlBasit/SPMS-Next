@@ -11,10 +11,8 @@ import { NextResponse } from "next/server";
 import Customer from "@/models/Customer";
 import Payment from "@/models/Payment";
 import Joi from "joi";
-
-connectDB();
-
 export async function POST(req, res, next) {
+  await connectDB();
   const reqBody = await req.json();
   const {
     user_type,
@@ -95,6 +93,7 @@ export async function POST(req, res, next) {
   }
 }
 export async function GET(req, res) {
+  await connectDB();
   const { id } = req.query;
   try {
     const payments = await Payment.find({ user_Id: id });
@@ -110,6 +109,7 @@ export async function GET(req, res) {
   }
 }
 export async function PATCH(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   console.log(reqBody);
   const { name, contact, email, cnic, desc, address, companyId } = reqBody;
@@ -150,6 +150,7 @@ export async function PATCH(req, res) {
   }
 }
 export async function DELETE(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const { companyId } = reqBody;
   if (!companyId) return createError(res, 422, "Invalid Customer Id!");

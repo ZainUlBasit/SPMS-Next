@@ -2,10 +2,8 @@ import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import Payment from "@/models/Payment";
 import Joi from "joi";
-
-connectDB();
-
 export async function POST(req, res, next) {
+  await connectDB();
   const reqBody = await req.json();
   const { user_Id, from_date, to_date } = reqBody;
 

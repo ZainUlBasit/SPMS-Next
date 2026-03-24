@@ -3,13 +3,11 @@ import { createError, successMessage } from "@/utils/ResponseMessage";
 import Item from "@/models/Item";
 import Company from "@/models/Company";
 import Stock from "@/models/Stock";
-
-connectDB();
-
 //******************************************************
 // working
 //******************************************************
 export async function POST(req, res, next) {
+  await connectDB();
   const reqBody = await req.json();
   const { itemId, qty: newQty, purchase, invoice_no, truck_no, date } = reqBody;
 

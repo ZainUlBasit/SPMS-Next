@@ -9,10 +9,8 @@ import { createError, successMessage } from "@/utils/ResponseMessage";
 import Company from "@/models/Company";
 import { NextResponse } from "next/server";
 import { updateCompanyLogo, uploadCompanyLogoFile } from "@/utils/firebase";
-
-connectDB();
-
 export async function POST(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   console.log(reqBody);
   const { name, contact, email, cnic, desc, address } = reqBody;
@@ -44,6 +42,7 @@ export async function POST(req, res) {
   }
 }
 export async function GET(req, res) {
+  await connectDB();
   try {
     const company = await Company.find();
     if (!company) return createError(res, 400, "Unable to Get Companies data!");
@@ -53,6 +52,7 @@ export async function GET(req, res) {
   }
 }
 export async function PATCH(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   console.log(reqBody);
   const { name, contact, email, cnic, desc, address, companyId, logo } =
@@ -107,6 +107,7 @@ export async function PATCH(req, res) {
 }
 
 export async function DELETE(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const { companyId } = reqBody;
   if (!companyId) return createError(res, 422, "Invalid Customer Id!");

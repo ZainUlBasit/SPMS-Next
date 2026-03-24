@@ -2,13 +2,11 @@ import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import Company from "@/models/Company";
 import Item from "@/models/Item";
-
-connectDB();
-
 //******************************************************
 // working
 //******************************************************
 export async function GET(req, res) {
+  await connectDB();
   let items;
   try {
     items = await Item.find().populate("companyId");
@@ -22,6 +20,7 @@ export async function GET(req, res) {
 
 // Add Item
 export async function POST(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   let item;
   const { code, name, companyId, purchase, sale, desc } = reqBody;
@@ -51,6 +50,7 @@ export async function POST(req, res) {
 // working done
 //******************************************************
 export async function PATCH(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const { itemId, payload } = reqBody;
   console.log(itemId, payload);

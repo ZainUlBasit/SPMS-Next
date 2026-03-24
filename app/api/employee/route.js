@@ -1,10 +1,8 @@
 import Employee from "@/models/Employee";
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
-
-connectDB();
-
 export async function POST(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   console.log(reqBody);
 
@@ -39,6 +37,7 @@ export async function POST(req, res) {
 }
 
 export async function GET(req, res) {
+  await connectDB();
   try {
     const employees = await Employee.find();
     if (!employees)
@@ -49,6 +48,7 @@ export async function GET(req, res) {
   }
 }
 export async function PATCH(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   console.log(reqBody);
   const { employeeId } = reqBody;
@@ -89,6 +89,7 @@ export async function PATCH(req, res) {
 }
 
 export async function DELETE(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const { employeeId } = reqBody;
   if (!employeeId) return createError(res, 422, "Invalid Employee Id!");

@@ -7,10 +7,8 @@ import Payment from "@/models/Payment";
 import Joi from "joi";
 import Transaction from "@/models/Transaction";
 import Return from "@/models/Return";
-
-connectDB();
-
 export async function POST(req, res, next) {
+  await connectDB();
   const reqBody = await req.json();
   const { invoice_no } = reqBody;
   try {

@@ -2,13 +2,11 @@ import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import Company from "@/models/Company";
 import Item from "@/models/Item";
-
-connectDB();
-
 //******************************************************
 // working
 //******************************************************
 export async function GET(req, res) {
+  await connectDB();
   let items;
   try {
     items = await Item.find();
@@ -52,6 +50,7 @@ export async function GET(req, res) {
 // working done
 //******************************************************
 export async function PATCH(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const { itemId, payload } = reqBody;
 
@@ -101,6 +100,7 @@ const updateItemQty = async (req, res, next) => {
 // working
 //******************************************************
 export async function POST(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const { itemId } = reqBody;
   console.log(itemId);

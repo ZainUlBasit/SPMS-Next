@@ -4,9 +4,10 @@ import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import bcrypt from "bcrypt";
 
-connectDB();
+export const maxDuration = 60;
 
 export async function POST(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   console.log(reqBody);
 
@@ -78,6 +79,7 @@ export async function POST(req, res) {
 }
 
 export async function GET(req, res) {
+  await connectDB();
   try {
     const customers = await Customer.find();
     if (!customers)
@@ -88,6 +90,7 @@ export async function GET(req, res) {
   }
 }
 export async function PATCH(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   console.log(reqBody);
   const { customerId } = reqBody;
@@ -135,6 +138,7 @@ export async function PATCH(req, res) {
 }
 
 export async function DELETE(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const { customerId } = reqBody;
   if (!customerId) return createError(res, 422, "Invalid Customer Id!");

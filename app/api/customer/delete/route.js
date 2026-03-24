@@ -1,10 +1,8 @@
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import Customer from "@/models/Customer";
-
-connectDB();
-
 export async function POST(req, res) {
+  await connectDB();
   const reqBody = await req.json();
   const { customerId } = reqBody;
   if (!customerId) return createError(res, 422, "Invalid Customer Id!");

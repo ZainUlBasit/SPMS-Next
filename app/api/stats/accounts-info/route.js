@@ -3,10 +3,8 @@ import { createError, successMessage } from "@/utils/ResponseMessage";
 import Company from "@/models/Company";
 import { NextResponse } from "next/server";
 import Customer from "@/models/Customer";
-
-connectDB();
-
 export async function GET(req, res) {
+  await connectDB();
   try {
     const companies = await Company.find();
     const customers = await Customer.find();
