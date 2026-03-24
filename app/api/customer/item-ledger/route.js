@@ -1,6 +1,9 @@
 import Transaction from "@/models/Transaction";
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
+
+export const dynamic = "force-dynamic";
+
 export async function POST(req, res) {
   await connectDB();
   try {

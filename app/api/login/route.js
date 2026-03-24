@@ -12,6 +12,9 @@ import User from "@/models/User";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { cookies } from "next/headers";
+
+export const dynamic = "force-dynamic";
+
 export async function POST(req, res) {
   await connectDB();
   const reqBody = await req.json();

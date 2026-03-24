@@ -9,6 +9,9 @@ import { createError, successMessage } from "@/utils/ResponseMessage";
 import Company from "@/models/Company";
 import { NextResponse } from "next/server";
 import { updateCompanyLogo, uploadCompanyLogoFile } from "@/utils/firebase";
+
+export const dynamic = "force-dynamic";
+
 export async function POST(req, res) {
   await connectDB();
   const reqBody = await req.json();

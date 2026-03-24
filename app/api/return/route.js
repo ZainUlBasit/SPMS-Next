@@ -5,6 +5,9 @@ import Item from "@/models/Item";
 import Product from "@/models/Product";
 import Transaction from "@/models/Transaction";
 import Return from "@/models/Return";
+
+export const dynamic = "force-dynamic";
+
 export async function POST(req, res, next) {
   await connectDB();
   const reqBody = await req.json();

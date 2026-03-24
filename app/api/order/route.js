@@ -3,6 +3,9 @@ import { createError, successMessage } from "@/utils/ResponseMessage";
 import Customer from "@/models/Customer";
 import Item from "@/models/Item";
 import Order from "@/models/Order";
+
+export const dynamic = "force-dynamic";
+
 // GET - List orders (for web admin)
 export async function GET(req, res) {
   await connectDB();

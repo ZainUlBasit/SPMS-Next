@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
 
-/**
- * Reuse a single Mongoose connection across Next.js / Vercel serverless invocations.
- * Without this, cold starts often pay the full MongoDB handshake cost on every request.
- *
- * Note: `useNewUrlParser` / `useUnifiedTopology` were removed in MongoDB Node.js Driver v4+.
- */
+// Reuse one Mongoose connection across serverless invocations (Vercel lambdas).
 const globalForMongoose = globalThis;
 
 if (!globalForMongoose.mongooseCache) {

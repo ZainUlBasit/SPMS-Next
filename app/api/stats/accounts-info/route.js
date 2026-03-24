@@ -3,6 +3,9 @@ import { createError, successMessage } from "@/utils/ResponseMessage";
 import Company from "@/models/Company";
 import { NextResponse } from "next/server";
 import Customer from "@/models/Customer";
+
+export const dynamic = "force-dynamic";
+
 export async function GET(req, res) {
   await connectDB();
   try {

@@ -11,6 +11,9 @@ import { NextResponse } from "next/server";
 import Customer from "@/models/Customer";
 import Payment from "@/models/Payment";
 import Joi from "joi";
+
+export const dynamic = "force-dynamic";
+
 export async function POST(req, res, next) {
   await connectDB();
   const reqBody = await req.json();

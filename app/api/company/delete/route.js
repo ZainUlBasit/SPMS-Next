@@ -1,6 +1,9 @@
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import Company from "@/models/Company";
+
+export const dynamic = "force-dynamic";
+
 export async function POST(req, res) {
   await connectDB();
   const reqBody = await req.json();

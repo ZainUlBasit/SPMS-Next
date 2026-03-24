@@ -3,6 +3,9 @@ import { createError, successMessage } from "@/utils/ResponseMessage";
 import Item from "@/models/Item";
 import Company from "@/models/Company";
 import Stock from "@/models/Stock";
+
+export const dynamic = "force-dynamic";
+
 //******************************************************
 // working
 //******************************************************

@@ -1,6 +1,9 @@
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import Order from "@/models/Order";
+
+export const dynamic = "force-dynamic";
+
 // POST - Reject order
 export async function POST(req, res) {
   await connectDB();

@@ -1,6 +1,9 @@
 import Stock from "@/models/Stock";
 import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
+
+export const dynamic = "force-dynamic";
+
 // import Company from "@/models/Company";
 import { NextResponse } from "next/server";
 export async function POST(req, res) {

@@ -5,6 +5,9 @@ import Item from "@/models/Item";
 import Product from "@/models/Product";
 import Transaction from "@/models/Transaction";
 import Order from "@/models/Order";
+
+export const dynamic = "force-dynamic";
+
 // POST - Approve order (converts order to transaction, updates stock & customer accounts)
 export async function POST(req, res) {
   await connectDB();

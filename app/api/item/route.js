@@ -2,6 +2,9 @@ import connectDB from "@/utils/db";
 import { createError, successMessage } from "@/utils/ResponseMessage";
 import Company from "@/models/Company";
 import Item from "@/models/Item";
+
+export const dynamic = "force-dynamic";
+
 //******************************************************
 // working
 //******************************************************
