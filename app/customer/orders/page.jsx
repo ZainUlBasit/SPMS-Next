@@ -2,7 +2,6 @@
 import { ApproveOrderApi, GetOrdersApi, RejectOrderApi } from "@/Https";
 import PageLoader from "@/components/Loader/PageLoader";
 import ProcessLoader from "@/components/Loader/ProcessLoader";
-import Search from "@/components/Search/Search";
 import TableWrapper from "@/components/Tables/TableWrapper";
 import { ErrorToast, SuccessToast } from "@/utils/ShowToast";
 import { Button } from "@mui/material";
@@ -100,16 +99,21 @@ export default function OrdersPage() {
   return (
     <div className="flex justify-center items-center">
       <TableWrapper>
-        <div className="flex gap-4 mb-4 items-center">
-          <Search
-            Placeholder="Search by customer name, invoice number, or phone..."
-            Value={searchText}
-            setValue={setSearchText}
-          />
+        {/* Header bar (Search component is absolutely positioned; keep both controls together here) */}
+        <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-9 left-[-1px] w-[calc(100%+2px)] bg-[#000] rounded-[15px] gap-4">
+          <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-white items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">
+            <input
+              className="outline-none bg-inherit text-white w-full maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]"
+              placeholder="Search by customer name, invoice number, or phone..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </div>
+
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border rounded-md"
+            className="px-4 py-2 border border-white/30 bg-black text-white rounded-md"
           >
             <option value="PENDING">Pending</option>
             <option value="APPROVED">Approved</option>
@@ -119,7 +123,7 @@ export default function OrdersPage() {
 
         {processing && <ProcessLoader />}
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto pt-10">
           <table className="min-w-full bg-white border border-gray-200">
             <thead className="bg-gray-50">
               <tr>
